@@ -17,12 +17,12 @@ export class imageLoad extends Component {
 
             //height and width of images
             //let height=ite.getComponent(UITransform).height 
-            let pwidth = this.contentNode.getComponent(UITransform).width
+            let pwidth = this.contentNode.getComponent(UITransform).width/2
             let cwidth= ite.getComponent(UITransform).width
-            // let scaleFactor = 1/Math.max(cwidth/pwidth);
-            // ite.setScale(Math.min(scaleFactor, 1));
+            ite.getComponent(UITransform).height= (ite.getComponent(UITransform).height)*(pwidth/cwidth)
+
             ite.getComponent(UITransform).width= (this.contentNode.getComponent(UITransform).width)/2;
-            ite.getComponent(UITransform).height = (this.contentNode.getComponent(UITransform).width)/2
+           // ite.getComponent(UITransform).height = (this.contentNode.getComponent(UITransform).width)/2
             this.contentNode.addChild(ite);
         });
     }
