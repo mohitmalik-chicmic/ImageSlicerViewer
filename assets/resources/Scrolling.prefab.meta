@@ -2,12 +2,12 @@
   "ver": "1.1.38",
   "importer": "prefab",
   "imported": true,
-  "uuid": "d5dbc12c-9a5c-45ea-be5b-34f982ba328d",
+  "uuid": "2c7a8d15-785e-4d61-92bc-dc22855c9d9a",
   "files": [
     ".json"
   ],
   "subMetas": {},
   "userData": {
-    "syncNodeName": "ScrollView"
+    "syncNodeName": "Scrolling"
   }
 }

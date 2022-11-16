@@ -7,7 +7,9 @@
   "subMetas": {},
   "userData": {
     "compressionType": {},
-    "isRemoteBundle": {},
+    "isRemoteBundle": {
+      "web-mobile": true
+    },
     "isBundle": true,
     "bundleName": "resources",
     "priority": 8
