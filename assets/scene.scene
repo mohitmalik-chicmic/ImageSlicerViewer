@@ -56,7 +56,7 @@
     "_prefab": null,
     "_lpos": {
       "__type__": "cc.Vec3",
-      "x": 480,
+      "x": 479.99999999999994,
       "y": 320.00000000000006,
       "z": 0
     },
@@ -298,7 +298,7 @@
       "__uuid__": "05d0e726-2a6c-418a-ae90-59d270ac3ebb",
       "__expectedType__": "cc.Prefab"
     },
-    "spilt": 4,
+    "sliceNumber": 8,
     "_id": "e3IZXnJTREIqrnWF0FGJtO"
   },
   {
@@ -412,8 +412,8 @@
     "__prefab": null,
     "_alignFlags": 45,
     "_target": null,
-    "_left": 0,
-    "_right": 0,
+    "_left": -5.684341886080802e-14,
+    "_right": -5.684341886080802e-14,
     "_top": 5.684341886080802e-14,
     "_bottom": 5.684341886080802e-14,
     "_horizontalCenter": 0,
