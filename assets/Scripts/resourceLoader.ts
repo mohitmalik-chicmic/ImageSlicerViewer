@@ -1,24 +1,43 @@
-import { _decorator, Component, Node, resources, Prefab, instantiate, director, SpriteFrame, Sprite, Texture2D, ImageAsset } from "cc";
+import { _decorator, Component, Node, resources, Prefab, instantiate, director, SpriteFrame, Sprite, Texture2D, ImageAsset, SystemEvent, Input, Scene, SceneAsset } from "cc";
+import { GamePlay } from "./GamePlay";
 import { imageLoad } from "./imageLoad";
 const { ccclass, property } = _decorator;
 
 @ccclass("resourceLoader")
 export class resourceLoader extends Component {
+
     @property({ type: Prefab })
-    load: Prefab = null;
+    scrollView: Prefab = null;
+
+    @property({type   : Prefab})
+    imageSlicePrefab : Prefab = null;
+
+    sliceCount : number = 8;
+    scrollViewNode : Node = null;
 
     start() {
-        let it = instantiate(this.load);
+       this.scrollViewNode = instantiate(this.scrollView);
         //this is adding scrolling prefab to the page
-        resources.loadDir("Images", SpriteFrame, (err, item) => {
+        resources.loadDir("Images", ImageAsset, (err, item) => {
             if (err) {
                 console.log("ERROR IN LOADING");
             } else {
-                it.getComponent(imageLoad).show(item);
-                this.node.addChild(it);
+                this.scrollViewNode.getComponent(imageLoad).show(item,this.setSelectedImage)
+                this.node.addChild(this.scrollViewNode);
             }
         });
     }
+
+
+
+    setSelectedImage = (image : SpriteFrame, imageIndex : any) =>{
+        
+        this.scrollViewNode.active = false;
+        let ImageSlide = instantiate(this.imageSlicePrefab);
+        ImageSlide.getComponent(GamePlay).setImageforSlice(this.sliceCount, imageIndex);
+        this.node.addChild(ImageSlide);
+    }
+
 
     update(deltaTime: number) {}
 }

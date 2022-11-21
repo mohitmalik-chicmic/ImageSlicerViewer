@@ -1,4 +1,5 @@
-import { _decorator, Component, Node, Prefab, instantiate, SpriteFrame, Sprite, UITransform } from "cc";
+import { _decorator, Component, Node, Prefab, instantiate, SpriteFrame, Sprite, UITransform, EventMouse, ImageAsset, Texture2D, assetManager } from "cc";
+import { resourceLoader } from "./resourceLoader";
 const { ccclass, property } = _decorator;
 
 @ccclass("imageLoad")
@@ -8,24 +9,43 @@ export class imageLoad extends Component {
 
     @property({ type: Node })
     contentNode: Node = null;
+    _flag : Boolean = false;
+    _image : any = null;
+    selectedCallback : any = null;
+
+    sliceImages : ImageAsset[] = [];
 
     start() {}
-    show(items: SpriteFrame[]) {
-        items.forEach((item) => {
-            let ite = instantiate(this.image);
-            ite.getComponent(Sprite).spriteFrame = item;
-
-            //height and width of images
-            //let height=ite.getComponent(UITransform).height 
-            let pwidth = this.contentNode.getComponent(UITransform).width/2
-            let cwidth= ite.getComponent(UITransform).width
-            ite.getComponent(UITransform).height= (ite.getComponent(UITransform).height)*(pwidth/cwidth)
-
-            ite.getComponent(UITransform).width= (this.contentNode.getComponent(UITransform).width)/2;
-           // ite.getComponent(UITransform).height = (this.contentNode.getComponent(UITransform).width)/2
-            this.contentNode.addChild(ite);
+    show(items: ImageAsset[] , callback) {
+        this.selectedCallback = callback;
+        this.sliceImages = items;
+        items.forEach((item,Index) => {
+            let itemInstantiate = instantiate(this.image);
+            let sprite = SpriteFrame.createWithImage(item);
+            itemInstantiate.getComponent(Sprite).spriteFrame =sprite;
+            itemInstantiate.name = `${Index}`
+            let parentWidth = this.contentNode.getComponent(UITransform).width/2
+            let childWidth= itemInstantiate.getComponent(UITransform).width
+            itemInstantiate.getComponent(UITransform).height= (itemInstantiate.getComponent(UITransform).height)*(parentWidth/childWidth)
+            itemInstantiate.getComponent(UITransform).width= (this.contentNode.getComponent(UITransform).width)/2;
+            itemInstantiate.on(Node.EventType.TOUCH_END,this.getSelected,this)
+            this.contentNode.addChild(itemInstantiate);
         });
     }
+    getSelected(event : any){
 
-    update(deltaTime: number) {}
+        let asset : ImageAsset = this.sliceImages[event.target.name]
+    //     this._flag = true
+    //    this._image = event.target.getComponent(Sprite).spriteFrame;
+    //    let imageIndex = this._image.name
+       console.log("Inside getSelected",event.target.name);
+       this.selectedCallback(this._image,asset);
+
+
+    }
+   
+
+
+    update(deltaTime: number) {
+    }
 }

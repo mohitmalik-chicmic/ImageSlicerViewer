@@ -5,25 +5,29 @@ const { ccclass, property } = _decorator;
 export class photoSlice2 extends Component {
     @property({type:ImageAsset})
     imageAssert:ImageAsset=null;
-    
-
-    
+    yAxis : number =0
     start() {
         
     }
-    setSlice(a:number,b:number){
-        let num=a;
-    
-        let image=new SpriteFrame();
-        let texture=new Texture2D();
-        texture.image=this.imageAssert;
-        image.texture=texture;
-        let rect=math.rect(0,0+b*(image.height /num),image.width,image.height/num);
-        image.setRect(rect);
-        this.node.on(Node.EventType.TOUCH_MOVE, this.onTouchMove, this, true);
-        this.node.getComponent(Sprite).spriteFrame=image;
-        this.node.name = b.toString();
-    
+    /**
+     * asdasdasdad
+     * @param splitCount ad
+     * @param Index 
+     * @param imageAsset 
+     */
+    setSlice(splitCount : number ,Index :number,imageAsset : ImageAsset){
+
+        console.log("Set slice called");
+        console.log(Image)
+        let sprite = SpriteFrame.createWithImage(imageAsset);
+        let rect=math.rect(0,Index*(sprite.height/splitCount),sprite.width,sprite.height/splitCount);
+        console.log(rect);
+        sprite.setRect(rect);
+        this.node.getComponent(Sprite).spriteFrame = sprite;
+       
+        //this.node.on(Node.EventType.TOUCH_MOVE, this.onTouchMove, this, true);
+        
+
     }
 
     // onTouchStartCallback (event){
@@ -38,6 +42,7 @@ export class photoSlice2 extends Component {
         //     console.log(event);
         //     x1=event.getUILocationX();
         // )};
+        console.log("Id " + event.getID())
         console.log(event.getUILocation);
         console.log(event.getLocation());  // location on screen space
         console.log(event.getUILocation());  // location on UI space

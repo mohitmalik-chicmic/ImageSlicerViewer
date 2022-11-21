@@ -10,6 +10,7 @@ export class bheem extends Component {
 
     }
     changeImage(event,data): void {
+        //new functionality added
         this.node.getComponent(Sprite).spriteFrame = this.character;
     }
 

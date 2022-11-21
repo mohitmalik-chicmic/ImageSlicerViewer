@@ -1,7 +1,7 @@
 [
   {
     "__type__": "cc.Prefab",
-    "_name": "Sprite",
+    "_name": "DeadDino",
     "_objFlags": 0,
     "_native": "",
     "data": {
@@ -13,7 +13,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "Sprite",
+    "_name": "DeadDino",
     "_objFlags": 0,
     "__editorExtras__": {},
     "_parent": null,
@@ -71,8 +71,8 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 150,
-      "height": 180
+      "width": 680,
+      "height": 472
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
@@ -83,7 +83,7 @@
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "78zu8o2OdJvIIp+xqKD6Tf"
+    "fileId": "18dgWoHPFKUbXX6DN4WPY5"
   },
   {
     "__type__": "cc.Sprite",
@@ -107,12 +107,12 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "24c419ea-63a8-4ea1-a9d0-7fc469489bbc@f9941",
+      "__uuid__": "55cbfd9f-b84f-4da9-b563-33f6b439a5c9@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
     "_fillType": 0,
-    "_sizeMode": 0,
+    "_sizeMode": 2,
     "_fillCenter": {
       "__type__": "cc.Vec2",
       "x": 0,
@@ -120,14 +120,14 @@
     },
     "_fillStart": 0,
     "_fillRange": 0,
-    "_isTrimmedMode": true,
+    "_isTrimmedMode": false,
     "_useGrayscale": false,
     "_atlas": null,
     "_id": ""
   },
   {
     "__type__": "cc.CompPrefabInfo",
-    "fileId": "933I+zM2VNGbx/JWDKNaWa"
+    "fileId": "0f5vdhJIRLv6uhnMd1VpbT"
   },
   {
     "__type__": "cc.PrefabInfo",
@@ -137,6 +137,6 @@
     "asset": {
       "__id__": 0
     },
-    "fileId": "a5ZFnU8JVCSp1CmPYUcN3i"
+    "fileId": "b3J2XWa3NImZWz+1do7+vU"
   }
 ]
