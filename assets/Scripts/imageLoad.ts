@@ -35,9 +35,6 @@ export class imageLoad extends Component {
     getSelected(event : any){
 
         let asset : ImageAsset = this.sliceImages[event.target.name]
-    //     this._flag = true
-    //    this._image = event.target.getComponent(Sprite).spriteFrame;
-    //    let imageIndex = this._image.name
        console.log("Inside getSelected",event.target.name);
        this.selectedCallback(this._image,asset);
 

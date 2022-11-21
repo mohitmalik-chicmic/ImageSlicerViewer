@@ -12,7 +12,7 @@ export class resourceLoader extends Component {
     @property({type   : Prefab})
     imageSlicePrefab : Prefab = null;
 
-    sliceCount : number = 8;
+   // sliceCount : number = 8;
     scrollViewNode : Node = null;
 
     start() {
@@ -34,7 +34,7 @@ export class resourceLoader extends Component {
         
         this.scrollViewNode.active = false;
         let ImageSlide = instantiate(this.imageSlicePrefab);
-        ImageSlide.getComponent(GamePlay).setImageforSlice(this.sliceCount, imageIndex);
+        ImageSlide.getComponent(GamePlay).setImageforSlice(imageIndex);
         this.node.addChild(ImageSlide);
     }
 

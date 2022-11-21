@@ -15,14 +15,18 @@ export class GamePlay extends Component {
     
     @property({type: CCInteger})
     spilt : any = 0;
-
+    
+    @property({type: CCInteger})
+    sliceNumber : any = 0;
 
     selectedImage  : SpriteFrame = null;
     
 
 
-    setImageforSlice( sliceCount : number, imageAsset: any){
-        this.spilt = 3;
+    setImageforSlice(imageAsset: any){
+        //this.spilt = 3;
+        var a=new Array();
+        var loopNum=0;
         for(var i=0;i<this.spilt;i++)
         { 
 
@@ -30,74 +34,38 @@ export class GamePlay extends Component {
             smallSlice.getComponent(photoSlice2).setSlice(this.spilt,i,imageAsset) ;
             smallSlice.setPosition(new Vec3(0,i*smallSlice.getComponent(UITransform).height,0));
             this.node.addChild(smallSlice);
-            
-
-
-        }
-
-
-
-
+            let pos = smallSlice.getPosition();
+            let radomH=this.fgetRandom(a,0,this.spilt);
+            if(a[radomH]!=undefined){
+            for(let i=0;i<this.spilt;i++){
+                if(a[i]==undefined){
+                    radomH=i;
+                    a[i]=1;
+                    break;
+                }
+            }
+            }else{
+                a[radomH]=1;
+            }
+          
+            pos.y=(imageAsset.height/2)-(imageAsset.height/this.spilt)-radomH*(5+(imageAsset.height/this.spilt));
+            smallSlice.setPosition(pos);
+            loopNum++;
+        } 
     }
+    
+    fgetRandom(a,min, max) {
+        var flag =true;
+        let value=Math.floor(Math.random() * (max - min) + min); 
+        return value;
+        
+      }
+    update(deltaTime: number) {
+        
+    }
+
 
     start() {
 
-        // var a= this.node.getComponent(GamePlay).spilt
-        // console.log(typeof(this.node.getComponent(GamePlay).spilt));
-        
-        // let image=new SpriteFrame();
-        // let texture=new Texture2D();
-        // texture.image=this.imageAssert;
-        // image.texture=texture;
-        // // var h=518/a;
-        // var b=0;
-        // while(b<a){
-        //     let smallSlice=instantiate(this.photo);
-        //     let smallSliceClass=smallSlice.getComponent(photoSlice2);
-            // let rect=math.rect(0+image.height/this.num,0+image.height/this.num,image.width,image.height/this.num);
-            //let mainHeight = this.node.getComponent(UITransform).height;
-            // smallSliceClass.setSlice(a,b);
-            // this.node.addChild(smallSlice);
-            // console.log("Id of each node" ,smallSlice.name)
-           
-            // Node.EventType.TOUCH_MOVE();
-            // smallSlice.on(Node.EventType.TOUCH_MOVE, this.onTouchStartCallback, this, true);
-            // let pos = smallSlice.getPosition();
-                //math.rect(x,y, height, width)
-
-
-            // pos.y+= 259-b*(10+(image.height/a));
-            // console.log(pos.x,pos.y);
-            // smallSlice.setPosition(pos);
-            // b++;
-            // for(let i =0;i<a;i++){
-            //     if()
-            // }
-
-            // let imagePos = Math.floor(Math.random()*(mainHeight/2 - (-mainHeight/2))+ (-mainHeight/2))+image.height/a
-            // if(imagePos>mainHeight/2 || imagePos<-mainHeight/2){
-            //     imagePos -=image.height/a
-            //     pos.y+= imagePos
-            // console.log(pos.x,pos.y);
-            // smallSlice.setPosition(pos);
-            // b++;
-            // }
-            // else{
-            //     console.log(imagePos);
-            // console.log(image.height/a)
-            // pos.y+= imagePos
-            // console.log(pos.x,pos.y);
-            // smallSlice.setPosition(pos);
-            // b++;
-            // }
-            
-        } 
-        
-
     }
-    // onTouchStartCallback (event){
-    //     console.log(event);
-
-    // }
-
-
+}

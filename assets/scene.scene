@@ -21,11 +21,11 @@
     "_active": true,
     "_components": [],
     "_prefab": {
-      "__id__": 18
+      "__id__": 20
     },
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 19
+      "__id__": 21
     },
     "_id": "83a2d6db-0bd1-472b-a51e-ad616142abc1"
   },
@@ -44,13 +44,13 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 15
-      },
-      {
-        "__id__": 16
-      },
-      {
         "__id__": 17
+      },
+      {
+        "__id__": 18
+      },
+      {
+        "__id__": 19
       }
     ],
     "_prefab": null,
@@ -97,7 +97,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 14
+        "__id__": 16
       }
     ],
     "_prefab": null,
@@ -144,7 +144,7 @@
     "_active": true,
     "_components": [
       {
-        "__id__": 13
+        "__id__": 15
       }
     ],
     "_prefab": null,
@@ -218,6 +218,9 @@
       },
       {
         "__id__": 12
+      },
+      {
+        "__id__": 13
       }
     ],
     "removedComponents": []
@@ -283,6 +286,22 @@
       "y": 0,
       "z": 0
     }
+  },
+  {
+    "__type__": "CCPropertyOverrideInfo",
+    "targetInfo": {
+      "__id__": 14
+    },
+    "propertyPath": [
+      "spilt"
+    ],
+    "value": 3
+  },
+  {
+    "__type__": "cc.TargetInfo",
+    "localID": [
+      "06ZAhHmtRBAo8ogpm6kqsR"
+    ]
   },
   {
     "__type__": "cc.UITransform",
@@ -379,7 +398,7 @@
     "_enabled": true,
     "__prefab": null,
     "_cameraComponent": {
-      "__id__": 14
+      "__id__": 16
     },
     "_alignCanvasWithScreen": true,
     "_id": "12O/ljcVlEqLmVm3U2gEOQ"
@@ -425,19 +444,19 @@
   {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 20
-    },
-    "shadows": {
-      "__id__": 21
-    },
-    "_skybox": {
       "__id__": 22
     },
-    "fog": {
+    "shadows": {
       "__id__": 23
     },
-    "octree": {
+    "_skybox": {
       "__id__": 24
+    },
+    "fog": {
+      "__id__": 25
+    },
+    "octree": {
+      "__id__": 26
     }
   },
   {
