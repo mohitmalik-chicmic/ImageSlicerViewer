@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, resources, Prefab, instantiate, director, SpriteFrame, Sprite, Texture2D, ImageAsset, SystemEvent, Input, Scene, SceneAsset } from "cc";
+import { _decorator, Component, Node, resources, Prefab, instantiate, director, SpriteFrame, Sprite, Texture2D, ImageAsset, SystemEvent, Input, Scene, SceneAsset, Vec3 } from "cc";
 import { GamePlay } from "./GamePlay";
 import { glowing } from "./glowing";
 import { imageLoad } from "./imageLoad";
@@ -12,7 +12,7 @@ export class resourceLoader extends Component {
 
     @property({type   : Prefab})
     imageSlicePrefab : Prefab = null;
-   // sliceCount : number = 8;
+
    @property({type: Prefab})
    imageGlow : Prefab = null;
 
@@ -20,6 +20,7 @@ export class resourceLoader extends Component {
     scrollViewNode : Node = null;
     ImageSlide : Node = null;
     result: boolean = false
+
     start() {
        this.scrollViewNode = instantiate(this.scrollView);
         //this is adding scrolling prefab to the page
@@ -32,29 +33,23 @@ export class resourceLoader extends Component {
             }
         });
     }
-
-
-
     setSelectedImage = (image : SpriteFrame, imageIndex : any) =>{
         this.scrollViewNode.active = false;
         this.ImageSlide = instantiate(this.imageSlicePrefab);
         this.ImageSlide.getComponent(GamePlay).setImageforSlice(imageIndex, this.addGlow);
-        this.img = imageIndex;
+         this.img= SpriteFrame.createWithImage(imageIndex);
         this.node.addChild(this.ImageSlide);
-        
     }
 
-    addGlow = (result : Boolean) =>{
+    addGlow = (result : Boolean, pos : Vec3) =>{
         console.log("Inside Resource Loader")
-        console.log(result)
+        console.log(pos)
         this.ImageSlide.active = false;
         let imageG = instantiate(this.imageGlow);
-        //imageG.getComponent(glowing).blink(this.img);
+        imageG.getComponent(glowing).blink(this.img, pos)
         this.node.addChild(imageG);
-
     }
 
     update(deltaTime: number) {
-       // this.node.getComponent(GamePlay).imgGlow(this.addGlow)
     }
 }

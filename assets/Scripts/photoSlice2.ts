@@ -5,26 +5,16 @@ const { ccclass, property } = _decorator;
 @ccclass('photoSlice2')
 export class photoSlice2 extends Component {
 
-   
     MouseposX:Number=0;
     MouseposY:Number=0;
     imageSprite :SpriteFrame = null;
     rect:Vec3=null;
     flag : boolean=true;
-
     puzzleResult : Boolean = false;
-
     GnumOfSlice:number=0;
-
-    get PuzzleResult(){
-        return this.puzzleResult;
-    }
     imageCallback : any = null;
 
-
-    start() {
-        
-    }
+    start() {}
     /**
      * asdasdasdad
      * @param splitCount ad
@@ -46,19 +36,16 @@ export class photoSlice2 extends Component {
         sprite.setRect(rect);
         this.node.getComponent(Sprite).spriteFrame = sprite;
        this.node.name = `${Index}`
-    
     }
 
     touchStart(event:EventTouch){
-       
         this.rect = this.node.parent.getComponent(UITransform).convertToNodeSpaceAR(new Vec3(event.getUILocation().x,event.getUILocation().y,0)); 
         var pos=this.node.getPosition();
         this.rect.x=this.rect.x-pos.x;
-        this.rect.y=this.rect.y-pos.y;
-       
+        this.rect.y=this.rect.y-pos.y;  
     }
+
     onTouchMove(event: EventTouch) {
-    
          if(this.rect.x<0&&this.rect.y<0){
             event.target.position =  this.node.parent.getComponent(UITransform).convertToNodeSpaceAR(new Vec3(event.getUILocation().x-this.rect.x,event.getUILocation().y-this.rect.y,0)); 
         }else if(this.rect.x>=0&&this.rect.y<0){
@@ -71,7 +58,6 @@ export class photoSlice2 extends Component {
     }
 
     checkOrder2(event:EventTouch){
-        
         var Index=(this.node.name);
         if(Index == '0' || Index == `${this.GnumOfSlice-1}`){
             if(Index == '0'){
@@ -123,7 +109,6 @@ export class photoSlice2 extends Component {
 
             if(UpperDistance<(this.imageSprite.height/this.GnumOfSlice)+10){
                 var pos=UpperSibling.getPosition();
-                // pos.y-=Distance-(this.imageSprite.height/ this.GnumOfSlice);
                 pos.x=0;
                 var pos2=this.node.getPosition();
                 pos2.x=0;
@@ -147,8 +132,8 @@ export class photoSlice2 extends Component {
         }
         this.checkPuzzle();
     }
-    checkPuzzle(){
 
+    checkPuzzle(){
         var FirstNode=this.node.parent.getChildByName('0');
         var FirstNodePos=FirstNode.getPosition();
         var check=1;
@@ -162,23 +147,16 @@ export class photoSlice2 extends Component {
         }
         if(check){
             console.log("Puzzle solved");
+            let mid = Math.ceil(this.GnumOfSlice/2);
+            console.log(mid)
+            let c = this.node.parent.getChildByName(`${mid}`)
+           // console.log(c.getPosition())
             this.puzzleResult = true;
-            this.imageCallback(this.puzzleResult)
-        //     this.node.parent.active = false;
-
-        //     // this.node.parent.removeAllChildren()
-        //    // this.node.removeAllChildren();
-            
-        //     //this.node.active = false
-        //     console.log(this.imageSprite)
+            this.imageCallback(this.puzzleResult, c.getPosition())
    
         }
     }
-        
-    
-    
     update(deltaTime: number) {
-        
     }
 }
 

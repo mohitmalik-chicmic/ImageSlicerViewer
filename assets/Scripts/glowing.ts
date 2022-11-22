@@ -3,28 +3,16 @@ const { ccclass, property } = _decorator;
 
 @ccclass('glowing')
 export class glowing extends Component {
-    // @property({type : Node})
-    // sibling : Node = null!
+    @property({type : Node})
+    getMask : Node = null!
 
-    // @property({type : SpriteFrame})
-    // Imageschange: SpriteFrame = null;
+    start(){}
 
-   
-
-    // buttonClick = (imageSprite : SpriteFrame) =>{
-    //     this.node.getComponent(Sprite).spriteFrame = imageSprite
-    // }
-    blink= (img : any) =>{
-        console.log("hiiiiiiii")
-      //  this.node.getComponent(Sprite).spriteFrame = img
-    }
-    start(){
-
-    }
-   
-     update(){
-
-     }
-
-    }
+    blink = (img : any, pos : Vec3) =>{
+    this.getMask.setPosition(pos)
+    this.getMask.getComponent(Sprite).spriteFrame = img
+    this.node.getChildByName('Item_cat').getComponent(Sprite).spriteFrame = img;
+    }   
+    update(){}
+}
 

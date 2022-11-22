@@ -9,6 +9,7 @@ export class imageLoad extends Component {
 
     @property({ type: Node })
     contentNode: Node = null;
+
     _flag : Boolean = false;
     _image : any = null;
     selectedCallback : any = null;
@@ -26,23 +27,19 @@ export class imageLoad extends Component {
             itemInstantiate.name = `${Index}`
             let parentWidth = this.contentNode.getComponent(UITransform).width/2
             let childWidth= itemInstantiate.getComponent(UITransform).width
-            itemInstantiate.getComponent(UITransform).height= (itemInstantiate.getComponent(UITransform).height)*(parentWidth/childWidth)
+            itemInstantiate.getComponent(UITransform).height= (this.contentNode.getComponent(UITransform).width)/2;
             itemInstantiate.getComponent(UITransform).width= (this.contentNode.getComponent(UITransform).width)/2;
             itemInstantiate.on(Node.EventType.TOUCH_END,this.getSelected,this)
             this.contentNode.addChild(itemInstantiate);
         });
     }
+    //(itemInstantiate.getComponent(UITransform).height)*(parentWidth/childWidth)
     getSelected(event : any){
 
         let asset : ImageAsset = this.sliceImages[event.target.name]
-       console.log("Inside getSelected",event.target.name);
-       this.selectedCallback(this._image,asset);
-
-
+        //console.log("Inside getSelected",event.target.name);
+        this.selectedCallback(this._image,asset);
     }
-   
-
-
     update(deltaTime: number) {
     }
 }

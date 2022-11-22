@@ -34,7 +34,6 @@ export class GamePlay extends Component {
     }
     setImageforSlice(imageAsset: any, callback){
         this.imgCallback = callback
-        //this.spilt = 3;
         var a=new Array();
         var loopNum=0;
         for(var i=0;i<this.spilt;i++)
@@ -70,14 +69,14 @@ export class GamePlay extends Component {
         return value;
         
       }
-    imageComplete = (result) =>{
-      console.log(result)
+    imageComplete = (result, pos : Vec3) =>{
+      console.log("inside Gameplay position")
+      console.log(pos)
         this.puzzleResult = result;
-        this.imgCallback(this.puzzleResult);
+        this.imgCallback(this.puzzleResult, pos);
         }
 
     update(deltaTime: number) {
-        //console.log(this.puzzleResult) 
     }
 
 
