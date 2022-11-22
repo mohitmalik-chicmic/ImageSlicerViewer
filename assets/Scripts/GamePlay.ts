@@ -13,28 +13,37 @@ export class GamePlay extends Component {
     @property({type : Prefab})
     slicePrefab : Prefab = null;
     
+    @property({type: Prefab})
+    imageGlow : Prefab = null;
+    
     @property({type: CCInteger})
     spilt : any = 0;
     
     @property({type: CCInteger})
     sliceNumber : any = 0;
 
+    imgCallback : any = null;
+
+    smallSlice : Node = null;
+
     selectedImage  : SpriteFrame = null;
     
+    puzzleResult : Boolean = false;
 
-
-    setImageforSlice(imageAsset: any){
+    start() {
+    }
+    setImageforSlice(imageAsset: any, callback){
+        this.imgCallback = callback
         //this.spilt = 3;
         var a=new Array();
         var loopNum=0;
         for(var i=0;i<this.spilt;i++)
         { 
-
-            let smallSlice = instantiate(this.slicePrefab);
-            smallSlice.getComponent(photoSlice2).setSlice(this.spilt,i,imageAsset) ;
-            smallSlice.setPosition(new Vec3(0,i*smallSlice.getComponent(UITransform).height,0));
-            this.node.addChild(smallSlice);
-            let pos = smallSlice.getPosition();
+            this.smallSlice = instantiate(this.slicePrefab);
+            this.smallSlice.getComponent(photoSlice2).setSlice(this.spilt,i,imageAsset,this.imageComplete) ;
+            this.smallSlice.setPosition(new Vec3(0,i*this.smallSlice.getComponent(UITransform).height,0));
+            this.node.addChild(this.smallSlice);
+            let pos = this.smallSlice.getPosition();
             let radomH=this.fgetRandom(a,0,this.spilt);
             if(a[radomH]!=undefined){
             for(let i=0;i<this.spilt;i++){
@@ -49,9 +58,10 @@ export class GamePlay extends Component {
             }
           
             pos.y=(imageAsset.height/2)-(imageAsset.height/this.spilt)-radomH*(5+(imageAsset.height/this.spilt));
-            smallSlice.setPosition(pos);
+            this.smallSlice.setPosition(pos);
             loopNum++;
-        } 
+        }
+ 
     }
     
     fgetRandom(a,min, max) {
@@ -60,12 +70,16 @@ export class GamePlay extends Component {
         return value;
         
       }
+    imageComplete = (result) =>{
+      console.log(result)
+        this.puzzleResult = result;
+        this.imgCallback(this.puzzleResult);
+        }
+
     update(deltaTime: number) {
-        
+        //console.log(this.puzzleResult) 
     }
 
 
-    start() {
-
-    }
+    
 }
