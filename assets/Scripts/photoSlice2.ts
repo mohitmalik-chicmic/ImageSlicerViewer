@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, SpriteFrame, Texture2D, math, Sprite, ImageAsset, Label, EventTouch, UITransform, Vec3, EventMouse, Rect, Vec2 } from 'cc';
+import { _decorator, Component, Node, SpriteFrame, Texture2D, math, Sprite, ImageAsset, Label, EventTouch, UITransform, Vec3, EventMouse, Rect, Vec2, instantiate, Prefab } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('photoSlice2')
@@ -6,12 +6,15 @@ export class photoSlice2 extends Component {
     @property({type:ImageAsset})
     imageAssert:ImageAsset=null;
     
+    @property({type:Prefab})
+    glowPrefab:Prefab=null;
+
     MouseposX:Number=0;
     MouseposY:Number=0;
 
     rect:Vec3=null;
     flag : boolean=true;
-
+    range:Number=10;
     GnumOfSlice:number=0;
     start() {
     
@@ -56,30 +59,7 @@ export class photoSlice2 extends Component {
     }
 
     
-    // checkOrder(EventTouch){
-    //     var Index=(this.node.name);
-    //     if(Index == '0'){
-
-    //     }else{
-    //         var Uindex=(parseInt(Index))-1;
-    //         var UpperPhotIndex=Uindex.toString();
-    //         var UpperSibling = this.node.parent.getChildByName(`${UpperPhotIndex}`);
-    //         var Distance =  Vec3.distance(UpperSibling.getPosition(),this.node.getPosition());
-
-    //         if(Distance < (this.imageAssert.height/ this.GnumOfSlice)+10){
-    //             var pos=UpperSibling.getPosition();
-    //             // pos.y-=Distance-(this.imageAssert.height/ this.GnumOfSlice);
-    //             pos.x=0;
-    //             var pos2=this.node.getPosition();
-    //             pos2.x=0;
-    //             pos2.y+=Distance-(this.imageAssert.height/ this.GnumOfSlice);
-    //             this.node.setPosition(pos2);
-    //             UpperSibling.setPosition(pos);
-    //         }
-      
-    //     }
-    // }
-
+    
 
 
     checkOrder2(event:EventTouch){
@@ -107,7 +87,7 @@ export class photoSlice2 extends Component {
                 var nodePos=this.node.getPosition();
                
                 var UpperDistance=Vec3.distance(nodePos,UpperSiblingpos);
-
+                console.log(UpperDistance-(this.imageAssert.height/ this.GnumOfSlice));
                 if(UpperDistance<(this.imageAssert.height/this.GnumOfSlice)+10){
                     var Spos=UpperSibling.getPosition();
                     Spos.x=0;
@@ -147,7 +127,7 @@ export class photoSlice2 extends Component {
                 UpperSibling.setPosition(pos);
 
             }
-            if(lowerDistance<(this.imageAssert.height/this.GnumOfSlice)+10){
+            else if(lowerDistance<(this.imageAssert.height/this.GnumOfSlice)+10){
                 
                 var Spos=LowerSibling.getPosition();
                 var Nodepos=this.node.getPosition();
@@ -170,16 +150,20 @@ export class photoSlice2 extends Component {
         for(var i=1;i<this.GnumOfSlice;i++){
             var remaingNode=this.node.parent.getChildByName(`${i}`);
             var distance=Vec3.distance(remaingNode.getPosition(),FirstNodePos);
-            console.log(distance)
-            // if(distance+2 <= i*(this.imageAssert.height/this.GnumOfSlice)){
+            console.log(distance,i*(this.imageAssert.height/this.GnumOfSlice ))
+            
+            if( distance+2 >= i*(this.imageAssert.height/this.GnumOfSlice) && distance-2 <= i *(this.imageAssert.height/this.GnumOfSlice)){
 
-            // }else{
-            //     check=0;
-            // }
+            }else{
+                check=0;
+            }
         }
-        // if(check){
-        //     console.log("Puzzle solved");
-        // }
+        if(check){
+            console.log("Puzzle solved");
+            this.node.active=false;
+            let glowPrefab=instantiate(this.glowPrefab);
+            this.node.addChild(glowPrefab);
+        }
     }
     
     
@@ -187,3 +171,60 @@ export class photoSlice2 extends Component {
         
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// checkOrder(EventTouch){
+    //     var Index=(this.node.name);
+    //     if(Index == '0'){
+
+    //     }else{
+    //         var Uindex=(parseInt(Index))-1;
+    //         var UpperPhotIndex=Uindex.toString();
+    //         var UpperSibling = this.node.parent.getChildByName(`${UpperPhotIndex}`);
+    //         var Distance =  Vec3.distance(UpperSibling.getPosition(),this.node.getPosition());
+
+    //         if(Distance < (this.imageAssert.height/ this.GnumOfSlice)+10){
+    //             var pos=UpperSibling.getPosition();
+    //             // pos.y-=Distance-(this.imageAssert.height/ this.GnumOfSlice);
+    //             pos.x=0;
+    //             var pos2=this.node.getPosition();
+    //             pos2.x=0;
+    //             pos2.y+=Distance-(this.imageAssert.height/ this.GnumOfSlice);
+    //             this.node.setPosition(pos2);
+    //             UpperSibling.setPosition(pos);
+    //         }
+      
+    //     }
+    // }

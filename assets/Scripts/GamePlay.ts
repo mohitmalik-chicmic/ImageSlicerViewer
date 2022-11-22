@@ -17,7 +17,7 @@ export class GamePlay extends Component {
     sliceNumber : any = 0;
     start() {
     
-        var a=new Array();
+        var array =new Array();
        
         var numOfSlice= this.node.getComponent(GamePlay).sliceNumber;
         
@@ -33,17 +33,17 @@ export class GamePlay extends Component {
             this.node.addChild(smallSlice);
             console.log(smallSlice.name);
             let pos = smallSlice.getPosition();
-            let radomH=this.fgetRandom(a,0,numOfSlice);
-            if(a[radomH]!=undefined){
+            let radomH=this.fgetRandom(0,numOfSlice);
+            if(array[radomH]!=undefined){
             for(let i=0;i<numOfSlice;i++){
-                if(a[i]==undefined){
+                if(array[i]==undefined){
                     radomH=i;
-                    a[i]=1;
+                    array[i]=1;
                     break;
                 }
             }
             }else{
-                a[radomH]=1;
+                array[radomH]=1;
             }
           
             pos.y=(this.node.getComponent(UITransform).height/2)-(image.height/numOfSlice)-radomH*(5+(image.height/numOfSlice));
@@ -52,7 +52,7 @@ export class GamePlay extends Component {
         } 
     }
     
-    fgetRandom(a,min, max) {
+    fgetRandom(min, max) {
         var flag =true;
         let value=Math.floor(Math.random() * (max - min) + min); 
         return value;
