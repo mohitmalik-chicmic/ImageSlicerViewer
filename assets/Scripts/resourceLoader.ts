@@ -16,6 +16,7 @@ export class resourceLoader extends Component {
    @property({type: Prefab})
    imageGlow : Prefab = null;
 
+    glowInstantiate : Node = null;
     img : any = null;
     scrollViewNode : Node = null;
     ImageSlide : Node = null;
@@ -43,22 +44,30 @@ export class resourceLoader extends Component {
 
     addGlow = (result : Boolean, pos : Vec3) =>{
         this.ImageSlide.active = false;
-        let imageG = instantiate(this.imageGlow);
-        imageG.getComponent(glowing).blink(this.img)
-        let sprite = imageG.getChildByName('Item_cat');
-        let maskContent = imageG.getChildByName('Mask');
+        this.glowInstantiate = instantiate(this.imageGlow);
+        this.glowInstantiate.getComponent(glowing).blink(this.img)
+        let sprite = this.glowInstantiate.getChildByName('Item_cat');
+        let maskContent = this.glowInstantiate.getChildByName('Mask');
         console.log("Resource loader add Glow")
-        this.node.addChild(imageG);
-        imageG.setPosition(0, pos.y, 0)
+        this.node.addChild(this.glowInstantiate);
+        this.glowInstantiate.setPosition(0, pos.y, 0)
         let imageRect = this.img._rect;
         sprite.getComponent(UITransform).height = imageRect.height;
         sprite.getComponent(UITransform).width = imageRect.width;
         maskContent.getComponent(UITransform).height = imageRect.height;
         maskContent.getComponent(UITransform).width = imageRect.width;
+        let btn = this.node.getChildByName('picture').getChildByName('reset');
+        console.log(btn.name)
+    
+       btn.on('click',this.resetDefault,this);
 
 
     }
-
+    resetDefault(){
+        console.log("hiii")
+        this.glowInstantiate.destroy()
+        this.scrollViewNode.active = true
+    }
     update(deltaTime: number) {
     }
 }
