@@ -56,7 +56,7 @@ export class GamePlay extends Component {
                 a[radomH]=1;
             }
           
-            pos.y=(imageAsset.height/2)-(imageAsset.height/this.spilt)-radomH*(5+(imageAsset.height/this.spilt));
+            pos.y=(imageAsset.height/2)-(imageAsset.height/this.spilt)-radomH*(150+(imageAsset.height/this.spilt));
             this.smallSlice.setPosition(pos);
             loopNum++;
         }

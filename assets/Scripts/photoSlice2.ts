@@ -1,4 +1,4 @@
-import { _decorator, Component, Node, SpriteFrame, Texture2D, math, Sprite, ImageAsset, Label, EventTouch, UITransform, Vec3, EventMouse, Prefab, instantiate } from 'cc';
+import { _decorator, Component, Node, SpriteFrame, Texture2D, math, Sprite, ImageAsset, Label, EventTouch, UITransform, Vec3, EventMouse, Prefab, instantiate, Intersection2D } from 'cc';
 import { glowing } from './glowing';
 const { ccclass, property } = _decorator;
 
@@ -13,6 +13,7 @@ export class photoSlice2 extends Component {
     puzzleResult : Boolean = false;
     GnumOfSlice:number=0;
     imageCallback : any = null;
+    selectImgPos : Vec3 = null;
 
     start() {}
     /**
@@ -42,7 +43,12 @@ export class photoSlice2 extends Component {
         this.rect = this.node.parent.getComponent(UITransform).convertToNodeSpaceAR(new Vec3(event.getUILocation().x,event.getUILocation().y,0)); 
         var pos=this.node.getPosition();
         this.rect.x=this.rect.x-pos.x;
-        this.rect.y=this.rect.y-pos.y;  
+        this.rect.y=this.rect.y-pos.y;
+        console.log("Inside touch start")
+        console.log(this.node.name)
+        console.log(pos)  
+        this.selectImgPos = this.node.getPosition();
+
     }
 
     onTouchMove(event: EventTouch) {
@@ -55,9 +61,39 @@ export class photoSlice2 extends Component {
         }else{
             event.target.position =  this.node.parent.getComponent(UITransform).convertToNodeSpaceAR(new Vec3(event.getUILocation().x-this.rect.x,event.getUILocation().y-this.rect.y,0));
         }
+        var pos = this.node.getPosition();
+        pos.z =0;
+        this.node.setPosition(pos);
     }
 
     checkOrder2(event:EventTouch){
+        //Swapping individual Node
+    //     let node = event.target.name
+    //     let dNode = this.node.parent.getChildByName(`${node}`)
+    //    console.log("Selected Node")
+    //    console.log(dNode)
+    //     for(let i=0;i<this.GnumOfSlice;i++){
+    //          let pos1 = this.node.parent.getChildByName(`${i}`);
+    //     // Collision checking 
+    //        if(parseInt(node) != i){
+    //         let collide = Intersection2D.rectRect(dNode.getComponent(UITransform).getBoundingBoxToWorld(),pos1.getComponent(UITransform).getBoundingBoxToWorld())
+    //         let dis = Vec3.distance(dNode.getPosition(), pos1.getPosition())
+    //          let currentNodeHeight = pos1.getComponent(UITransform).height;
+    //          let dragNodeHeight = dNode.getComponent(UITransform).height;
+    //         console.log(collide)
+    //         let larger =  currentNodeHeight<dragNodeHeight? currentNodeHeight : dragNodeHeight;
+    //         if(collide || dis<=larger){
+    //             console.log(node + "........" +dNode.getPosition())
+    //             console.log(pos1.name+  "......."  +pos1.getPosition())
+    //             console.log("Touch start rect")
+    //             let newPos = pos1.getPosition()
+    //             newPos.y = this.selectImgPos.y
+    //             pos1.setPosition(newPos)
+    //         }
+    //        }
+    //     }
+
+        //Sliced image joining code
         var Index=(this.node.name);
         if(Index == '0' || Index == `${this.GnumOfSlice-1}`){
             if(Index == '0'){
@@ -66,7 +102,6 @@ export class photoSlice2 extends Component {
                 var Nodepos=this.node.getPosition();
                 var lowerDistance=Vec3.distance(Nodepos,Spos);
                 if(lowerDistance<(this.imageSprite.height/this.GnumOfSlice)+10){
-                //console.log(lowerDistance);
                     Nodepos.y-=lowerDistance-(this.imageSprite.height/ this.GnumOfSlice);
                     Nodepos.x=0;
                     Spos.x=0;
@@ -85,7 +120,6 @@ export class photoSlice2 extends Component {
                     Spos.x=0;
                     var Nodepos=this.node.getPosition();
                     Nodepos.x=0;
-                    //console.log(UpperDistance-(this.imageSprite.height/ this.GnumOfSlice));
                     Nodepos.y+=UpperDistance-(this.imageSprite.height/ this.GnumOfSlice);
                     this.node.setPosition(Nodepos);
                     UpperSibling.setPosition(Spos);
@@ -106,6 +140,12 @@ export class photoSlice2 extends Component {
             var nodePos=this.node.getPosition();
             var UpperDistance=Vec3.distance(UpperPhotoPos,nodePos);
             var lowerDistance=Vec3.distance(nodePos,lowerPhotoPos);
+            if(UpperDistance<this.imageSprite.height/this.GnumOfSlice){
+                let c = this.node.getPosition();
+                this.node.setPosition(0,UpperSibling.getPosition().y,0)
+                UpperSibling.setPosition(0,c.y,0)
+
+            }
 
             if(UpperDistance<(this.imageSprite.height/this.GnumOfSlice)+10){
                 var pos=UpperSibling.getPosition();
@@ -132,7 +172,7 @@ export class photoSlice2 extends Component {
         }
         this.checkPuzzle();
     }
-
+    // Checking for Final Result
     checkPuzzle(){
         var FirstNode=this.node.parent.getChildByName('0');
         var FirstNodePos=FirstNode.getPosition();
@@ -148,7 +188,7 @@ export class photoSlice2 extends Component {
         if(check){
             console.log("Puzzle solved");
             let mid = Math.ceil(this.GnumOfSlice/2);
-            console.log(mid)
+            //console.log(mid)
             let c = this.node.parent.getChildByName(`${mid}`)
            // console.log(c.getPosition())
             this.puzzleResult = true;
