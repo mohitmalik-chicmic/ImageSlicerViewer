@@ -8,10 +8,9 @@ export class glowing extends Component {
 
     start(){}
 
-    blink = (img : any, pos : Vec3) =>{
-    this.getMask.setPosition(pos)
-    this.getMask.getComponent(Sprite).spriteFrame = img
-    this.node.getChildByName('Item_cat').getComponent(Sprite).spriteFrame = img;
+    blink = (img : any) =>{
+        this.getMask.getComponent(Sprite).spriteFrame = img
+        this.node.getChildByName('Item_cat').getComponent(Sprite).spriteFrame = img;
     }   
     update(){}
 }

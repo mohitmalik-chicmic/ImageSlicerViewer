@@ -70,8 +70,6 @@ export class GamePlay extends Component {
         
       }
     imageComplete = (result, pos : Vec3) =>{
-      console.log("inside Gameplay position")
-      console.log(pos)
         this.puzzleResult = result;
         this.imgCallback(this.puzzleResult, pos);
         }

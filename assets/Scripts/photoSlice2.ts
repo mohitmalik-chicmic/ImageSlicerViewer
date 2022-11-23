@@ -147,7 +147,7 @@ export class photoSlice2 extends Component {
         }
         if(check){
             console.log("Puzzle solved");
-            let mid = Math.ceil(this.GnumOfSlice/2);
+            let mid = Math.floor(this.GnumOfSlice/2);
             console.log(mid)
             let c = this.node.parent.getChildByName(`${mid}`)
            // console.log(c.getPosition())
