@@ -2,6 +2,7 @@ import { _decorator, Component, Node, resources, Prefab, instantiate, director, 
 import { GamePlay } from "./GamePlay";
 import { glowing } from "./glowing";
 import { imageLoad } from "./imageLoad";
+import { Singleton } from "./Singleton";
 const { ccclass, property } = _decorator;
 
 @ccclass("resourceLoader")
@@ -23,6 +24,9 @@ export class resourceLoader extends Component {
     result: boolean = false
 
     start() {
+        let c = Singleton.getInstance();
+        console.log("Inside Resource Loader")
+        console.log(c)
        this.scrollViewNode = instantiate(this.scrollView);
         //this is adding scrolling prefab to the page
         resources.loadDir("Images", ImageAsset, (err, item) => {
