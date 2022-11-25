@@ -296,7 +296,7 @@
       "__uuid__": "e4e156df-df05-4e8f-8456-4ca9f70310a9",
       "__expectedType__": "cc.Prefab"
     },
-    "imageGlow": {
+    "glowInstantiatelow": {
       "__uuid__": "23c06ee1-65c8-4c4f-ba4c-a7b5fb24c066",
       "__expectedType__": "cc.Prefab"
     },

@@ -140,10 +140,6 @@
     "__prefab": {
       "__id__": 7
     },
-    "imageGlow": {
-      "__uuid__": "23c06ee1-65c8-4c4f-ba4c-a7b5fb24c066",
-      "__expectedType__": "cc.Prefab"
-    },
     "_id": ""
   },
   {

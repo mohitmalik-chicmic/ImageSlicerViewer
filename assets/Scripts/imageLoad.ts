@@ -27,6 +27,7 @@ export class imageLoad extends Component {
             itemInstantiate.name = `${Index}`
             let parentWidth = this.contentNode.getComponent(UITransform).width/2
             let childWidth= itemInstantiate.getComponent(UITransform).width
+            
             itemInstantiate.getComponent(UITransform).height= (this.contentNode.getComponent(UITransform).width)/2;
             itemInstantiate.getComponent(UITransform).width= (this.contentNode.getComponent(UITransform).width)/2;
             itemInstantiate.on(Node.EventType.TOUCH_END,this.getSelected,this)

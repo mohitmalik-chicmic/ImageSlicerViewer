@@ -1,7 +1,8 @@
-import { _decorator, Component, Node, resources, Prefab, instantiate, director, SpriteFrame, Sprite, Texture2D, ImageAsset, SystemEvent, Input, Scene, SceneAsset, Vec3, UITransform } from "cc";
+import { _decorator, Component, Node, resources, Prefab, instantiate, director, SpriteFrame, Sprite, Texture2D, ImageAsset, SystemEvent, Input, Scene, SceneAsset, Vec3, UITransform, JsonAsset } from "cc";
 import { GamePlay } from "./GamePlay";
 import { glowing } from "./glowing";
 import { imageLoad } from "./imageLoad";
+import { SingletonClass } from "./SingleTon";
 const { ccclass, property } = _decorator;
 
 @ccclass("resourceLoader")
@@ -14,17 +15,19 @@ export class resourceLoader extends Component {
     imageSlicePrefab : Prefab = null;
 
    @property({type: Prefab})
-   imageGlow : Prefab = null;
+   glowInstantiatelow : Prefab = null;
 
     img : any = null;
     scrollViewNode : Node = null;
     ImageSlide : Node = null;
     result: boolean = false
-
+    glowInstantiate:Node=null;
     start() {
-       this.scrollViewNode = instantiate(this.scrollView);
-        //this is adding scrolling prefab to the page
-        resources.loadDir("Images", ImageAsset, (err, item) => {
+        var lvl = SingletonClass.getInstance();
+        
+        console.log(lvl);
+        this.scrollViewNode = instantiate(this.scrollView);
+        resources.loadDir('Images', ImageAsset, (err, item) => {
             if (err) {
                 console.log("ERROR IN LOADING");
             } else {
@@ -32,6 +35,7 @@ export class resourceLoader extends Component {
                 this.node.addChild(this.scrollViewNode);
             }
         });
+        
     }
     setSelectedImage = (image : SpriteFrame, imageIndex : any) =>{
         this.scrollViewNode.active = false;
@@ -43,20 +47,25 @@ export class resourceLoader extends Component {
 
     addGlow = (result : Boolean, pos : Vec3) =>{
         this.ImageSlide.active = false;
-        let imageG = instantiate(this.imageGlow);
-        imageG.getComponent(glowing).blink(this.img)
-        let sprite = imageG.getChildByName('Item_cat');
-        let maskContent = imageG.getChildByName('Mask');
+        this.glowInstantiate = instantiate(this.glowInstantiatelow);
+
+        this.glowInstantiate.getComponent(glowing).blink(this.img)
+        let sprite = this.glowInstantiate.getChildByName('Item_cat');
+        let maskContent = this.glowInstantiate.getChildByName('Mask');
         console.log("Resource loader add Glow")
-        this.node.addChild(imageG);
-        imageG.setPosition(0, pos.y, 0)
+        this.node.addChild(this.glowInstantiate);
+        this.glowInstantiate.setPosition(0, pos.y, 0)
         let imageRect = this.img._rect;
         sprite.getComponent(UITransform).height = imageRect.height;
         sprite.getComponent(UITransform).width = imageRect.width;
         maskContent.getComponent(UITransform).height = imageRect.height;
         maskContent.getComponent(UITransform).width = imageRect.width;
-
-
+        let btn=this.node.getChildByName("picture").getChildByName("restart");
+        btn.on('click',this.restart,this);
+    }
+    restart(){
+       this.glowInstantiate.destroy();
+       this.scrollViewNode.active=true;
     }
 
     update(deltaTime: number) {

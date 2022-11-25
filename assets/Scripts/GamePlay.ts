@@ -1,7 +1,7 @@
 import { _decorator, Component, Node, ImageAsset, SpriteFrame, Texture2D, math, Sprite, macro, Prefab, instantiate, Label, Enum, CCInteger, UITransform, Vec3 } from 'cc';
 
 import { photoSlice2 } from './photoSlice2';
-
+import { SingletonClass } from './SingleTon';
 const { ccclass, property } = _decorator;
 
 @ccclass('GamePlay')
@@ -31,6 +31,7 @@ export class GamePlay extends Component {
     puzzleResult : Boolean = false;
 
     start() {
+      
     }
     setImageforSlice(imageAsset: any, callback){
         this.imgCallback = callback
@@ -54,9 +55,10 @@ export class GamePlay extends Component {
             }
             }else{
                 a[radomH]=1;
+                
             }
           
-            pos.y=(imageAsset.height/2)-(imageAsset.height/this.spilt)-radomH*(150+(imageAsset.height/this.spilt));
+            pos.y=(imageAsset.height/2)-(imageAsset.height/this.spilt)-radomH*(2+(imageAsset.height/this.spilt));
             this.smallSlice.setPosition(pos);
             loopNum++;
         }
