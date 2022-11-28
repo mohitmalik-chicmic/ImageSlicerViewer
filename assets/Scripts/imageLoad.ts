@@ -1,4 +1,5 @@
 import { _decorator, Component, Node, Prefab, instantiate, SpriteFrame, Sprite, UITransform, EventMouse, ImageAsset, Texture2D, assetManager } from "cc";
+import { FitSprite } from "./FitSprite";
 import { resourceLoader } from "./resourceLoader";
 const { ccclass, property } = _decorator;
 
@@ -23,22 +24,21 @@ export class imageLoad extends Component {
         items.forEach((item,Index) => {
             let itemInstantiate = instantiate(this.image);
             let sprite = SpriteFrame.createWithImage(item);
-            itemInstantiate.getComponent(Sprite).spriteFrame =sprite;
-            itemInstantiate.name = `${Index}`
-            let parentWidth = this.contentNode.getComponent(UITransform).width/2
-            let childWidth= itemInstantiate.getComponent(UITransform).width
             
-            itemInstantiate.getComponent(UITransform).height= (this.contentNode.getComponent(UITransform).width)/2;
-            itemInstantiate.getComponent(UITransform).width= (this.contentNode.getComponent(UITransform).width)/2;
+            console.log(itemInstantiate.getComponent(UITransform).height);
+            
+            itemInstantiate.getComponent(FitSprite).fitImage(sprite);
+            itemInstantiate.name = `${Index}`
+            
             itemInstantiate.on(Node.EventType.TOUCH_END,this.getSelected,this)
             this.contentNode.addChild(itemInstantiate);
         });
     }
-    //(itemInstantiate.getComponent(UITransform).height)*(parentWidth/childWidth)
+   
     getSelected(event : any){
 
         let asset : ImageAsset = this.sliceImages[event.target.name]
-        //console.log("Inside getSelected",event.target.name);
+      
         this.selectedCallback(this._image,asset);
     }
     update(deltaTime: number) {

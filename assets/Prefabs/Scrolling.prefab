@@ -614,7 +614,7 @@
       "b": 255,
       "a": 0
     },
-    "_miterLimit": 10,
+    "_miterLimit": 100,
     "_id": ""
   },
   {
@@ -675,19 +675,19 @@
     "_layoutType": 3,
     "_cellSize": {
       "__type__": "cc.Size",
-      "width": 40,
-      "height": 40
+      "width": 540,
+      "height": 600
     },
     "_startAxis": 0,
     "_paddingLeft": 0,
     "_paddingRight": 0,
     "_paddingTop": 0,
-    "_paddingBottom": 0,
+    "_paddingBottom": 1,
     "_spacingX": 0,
     "_spacingY": 0,
     "_verticalDirection": 1,
     "_horizontalDirection": 0,
-    "_constraint": 0,
+    "_constraint": 2,
     "_constraintNum": 2,
     "_affectedByScale": false,
     "_isAlign": false,
@@ -766,7 +766,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "45f1edf5-7c05-477e-93da-697673baf89d@f9941",
+      "__uuid__": "41a3c5c4-779e-4b17-b366-590a6b9bd382@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 1,

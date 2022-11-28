@@ -21,11 +21,11 @@
     "_active": true,
     "_components": [],
     "_prefab": {
-      "__id__": 10
+      "__id__": 9
     },
     "autoReleaseAssets": false,
     "_globals": {
-      "__id__": 11
+      "__id__": 10
     },
     "_id": "aadaa7d8-ae8d-4c91-a06c-bd2f707ef8a1"
   },
@@ -44,6 +44,9 @@
     "_active": true,
     "_components": [
       {
+        "__id__": 5
+      },
+      {
         "__id__": 6
       },
       {
@@ -51,9 +54,6 @@
       },
       {
         "__id__": 8
-      },
-      {
-        "__id__": 9
       }
     ],
     "_prefab": null,
@@ -97,9 +97,6 @@
     "_components": [
       {
         "__id__": 4
-      },
-      {
-        "__id__": 5
       }
     ],
     "_prefab": null,
@@ -173,32 +170,6 @@
     "_cameraType": -1,
     "_trackingType": 0,
     "_id": "63WIch3o5BEYRlXzTT0oWc"
-  },
-  {
-    "__type__": "cc.Animation",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 3
-    },
-    "_enabled": false,
-    "__prefab": null,
-    "playOnLoad": false,
-    "_clips": [
-      {
-        "__uuid__": "3f6d9eda-1439-4808-a05d-f56c3868022e",
-        "__expectedType__": "cc.AnimationClip"
-      },
-      {
-        "__uuid__": "4927aa14-33a4-416d-8af8-12a7c28fecef",
-        "__expectedType__": "cc.AnimationClip"
-      }
-    ],
-    "_defaultClip": {
-      "__uuid__": "4927aa14-33a4-416d-8af8-12a7c28fecef",
-      "__expectedType__": "cc.AnimationClip"
-    },
-    "_id": "f6u2b9O1hMDrrnrDQi/aT+"
   },
   {
     "__type__": "cc.UITransform",
@@ -283,19 +254,19 @@
   {
     "__type__": "cc.SceneGlobals",
     "ambient": {
-      "__id__": 12
+      "__id__": 11
     },
     "shadows": {
-      "__id__": 13
+      "__id__": 12
     },
     "_skybox": {
-      "__id__": 14
+      "__id__": 13
     },
     "fog": {
-      "__id__": 15
+      "__id__": 14
     },
     "octree": {
-      "__id__": 16
+      "__id__": 15
     }
   },
   {

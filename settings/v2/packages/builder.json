@@ -1,7 +1,8 @@
 {
   "splash-setting": {
     "displayWatermark": false,
-    "totalTime": 0,
-    "displayRatio": 0
+    "totalTime": 4000,
+    "displayRatio": 1,
+    "url": "/Users/abhishekrawat/Downloads/ git push origin imageslicer.png"
   }
 }

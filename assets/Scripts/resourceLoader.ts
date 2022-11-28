@@ -23,7 +23,21 @@ export class resourceLoader extends Component {
     result: boolean = false
     glowInstantiate:Node=null;
     start() {
-        var lvl = SingletonClass.getInstance();
+        
+       
+        
+    }
+    handleStartButtonClick (){
+
+        console.log("hello");
+        var child=this.node.getChildByName("Node");
+        child.active=false;
+        this.scrollViewFunction();
+
+        
+    }
+    scrollViewFunction(){
+         var lvl = SingletonClass.getInstance();
         
         console.log(lvl);
         this.scrollViewNode = instantiate(this.scrollView);
@@ -35,8 +49,8 @@ export class resourceLoader extends Component {
                 this.node.addChild(this.scrollViewNode);
             }
         });
-        
     }
+    
     setSelectedImage = (image : SpriteFrame, imageIndex : any) =>{
         this.scrollViewNode.active = false;
         this.ImageSlide = instantiate(this.imageSlicePrefab);

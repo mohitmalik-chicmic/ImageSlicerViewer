@@ -1,10 +1,11 @@
-import { _decorator, Component, Node, SpriteFrame, Texture2D, math, Sprite, ImageAsset, Label, EventTouch, UITransform, Vec3, EventMouse, Prefab, instantiate, JsonAsset, Intersection2D, tween } from 'cc';
+import { _decorator, Component, Node, SpriteFrame, Texture2D, math, Sprite, ImageAsset, Label, EventTouch, UITransform, Vec3, EventMouse, Prefab, instantiate, JsonAsset, Intersection2D, tween, assetManager, AudioSource } from 'cc';
 import { glowing } from './glowing';
 const { ccclass, property } = _decorator;
 import { SingletonClass } from './SingleTon';
+import { Audio } from './Audio';
 @ccclass('photoSlice2')
 export class photoSlice2 extends Component {
-
+    
     MouseposX:Number=0;
     MouseposY:Number=0;
     imageSprite :SpriteFrame = null;
@@ -16,8 +17,10 @@ export class photoSlice2 extends Component {
     selectImgPos : Vec3 = null;
     pos:Vec3=null;
     NegativePoint:number=0;
+    audio: any=null;
     start() {
-        
+        this.audio=this.node.getComponent(AudioSource).clip;
+
         
     }
     /**
@@ -111,6 +114,7 @@ export class photoSlice2 extends Component {
                             tween(AnotherNode)
                         .to(0.2,{position : new Vec3(newPos.x,-newPos.y,newPos.z), })
                         .call(() => {
+                            this.audio.play();
                             this.checkPuzzle();
                         })
                         .start();
@@ -118,6 +122,7 @@ export class photoSlice2 extends Component {
                             tween(AnotherNode)
                             .to(0.2,{position : new Vec3(newPos.x,newPos.y,newPos.z), })
                             .call(() => {
+                                this.audio.play();
                                 this.checkPuzzle();
                             })
                             .start();
@@ -145,6 +150,9 @@ export class photoSlice2 extends Component {
             }
         }
         if(check){
+           
+            
+           
             console.log("Puzzle solved");
             let mid = Math.ceil(this.GnumOfSlice/2);
             console.log(mid)
