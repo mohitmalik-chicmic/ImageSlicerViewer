@@ -8,7 +8,7 @@
     },
     "_native": "",
     "sample": 60,
-    "speed": 0.1,
+    "speed": 0.5,
     "wrapMode": 22,
     "enableTrsBlending": false,
     "_duration": 0.25,
