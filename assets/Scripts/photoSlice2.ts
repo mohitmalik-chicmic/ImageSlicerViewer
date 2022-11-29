@@ -138,24 +138,30 @@ export class photoSlice2 extends Component {
     }
 
     checkPuzzle(){
+       
+        
         var FirstNode=this.node.parent.getChildByName('0');
+        var secNode=this.node.parent.getChildByName('1');
         var FirstNodePos=FirstNode.getPosition();
-        var check=1;
+        var check=0;
+        if(FirstNode.getPosition().y > secNode.getPosition().y){
+        check=1;
         for(var i=1;i<this.GnumOfSlice;i++){
             var remaingNode=this.node.parent.getChildByName(`${i}`);
             var distance=Vec3.distance(remaingNode.getPosition(),FirstNodePos);
+            
             if( distance+30 >= i*(this.imageSprite.height/this.GnumOfSlice) && distance-30 <= i *(this.imageSprite.height/this.GnumOfSlice)){
-            }else{
+            }
+            else{
                 check=0;
             }
         }
+        }
         if(check){
            
-            
-           
-            console.log("Puzzle solved");
+        
             let mid = Math.ceil(this.GnumOfSlice/2);
-            console.log(mid)
+          
             let c = this.node.parent.getChildByName(`${mid}`)
             this.puzzleResult = true;
             this.imageCallback(this.puzzleResult, c.getPosition())
