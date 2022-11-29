@@ -112,7 +112,7 @@ export class photoSlice2 extends Component {
                        
                         if(this.selectImgPos.y<newPos.y){
                             tween(AnotherNode)
-                        .to(0.2,{position : new Vec3(newPos.x,-newPos.y,newPos.z), })
+                        .to(0.07,{position : new Vec3(newPos.x,-newPos.y,newPos.z), })
                         .call(() => {
                             this.audio.play();
                             this.checkPuzzle();
@@ -120,7 +120,7 @@ export class photoSlice2 extends Component {
                         .start();
                         }else{
                             tween(AnotherNode)
-                            .to(0.2,{position : new Vec3(newPos.x,newPos.y,newPos.z), })
+                            .to(0.07,{position : new Vec3(newPos.x,newPos.y,newPos.z), })
                             .call(() => {
                                 this.audio.play();
                                 this.checkPuzzle();
