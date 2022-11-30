@@ -1,9 +1,7 @@
 import { _decorator, Component, resources, Asset, Prefab, AudioClip, error, VideoClip, SpriteFrame } from "cc";
-// import { LOG_VISIBILITY } from "../Common/Costant";
-// import { consoleMyLog } from "../Common/Utility";
+
 const { ccclass } = _decorator;
 
-//Loads all the resources on login.
 
 @ccclass("ResourceUtils")
 export class ResourceUtils extends Component {
