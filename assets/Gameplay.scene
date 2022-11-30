@@ -925,10 +925,6 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "image": {
-      "__uuid__": "a85f2527-5301-4893-b37e-edb765bb50f9",
-      "__expectedType__": "cc.Prefab"
-    },
     "imageSlicer": {
       "__uuid__": "23518c5e-a0cf-49c1-9f34-c146d71b040b",
       "__expectedType__": "cc.Prefab"

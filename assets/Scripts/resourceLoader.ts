@@ -8,27 +8,20 @@ const { ccclass, property } = _decorator;
 @ccclass("resourceLoader")
 export class resourceLoader extends Component {
 
-    @property({ type: Prefab })
-    image: Prefab = null!;
-
     @property({type   : Prefab})
     imageSlicer : Prefab = null;
 
    @property({type: Prefab})
    imageArray : ImageAsset[] =[];
-   inc : number =2;
+   inc : number =0;
 
    @property({type: Prefab})
    glowPrefab: Prefab = null;
 
-
-  // glowInstantiatelow : Prefab = null;
- 
     img : any = null;
     ImageSlide : Node = null;
-    result: boolean = false
+    result: Boolean = false
     glowInstantiate:Node=null;
-    slicePerfab : Node =null;
     child : Node = null;
     start() {
         
@@ -42,7 +35,8 @@ export class resourceLoader extends Component {
         this.addSlider()     
     }
     addSlider(){
-        this.node.removeAllChildren()
+        this.result = false
+        this.child.active = false
         this.ImageSlide = instantiate(this.imageSlicer);
         this.node.addChild(this.ImageSlide)
         this.getImages();   
@@ -54,6 +48,7 @@ export class resourceLoader extends Component {
                 console.log("ERROR IN LOADING");
             } else {
                 this.imageArray =item;
+                console.log('Array length',item.length)
                 this.setSelectedImage()
             }
         });
@@ -61,26 +56,39 @@ export class resourceLoader extends Component {
         setSelectedImage(){
             let nextBtn = this.ImageSlide.getChildByName('nextImage');
             let resetBtn = this.ImageSlide.getChildByName('resetImage');
+            let prevImage = this.ImageSlide.getChildByName('prevImage');
+            prevImage.on('click', this.prevImage, this)
             resetBtn.on('click', this.resetImage,this)
-           // console.log(nextBtn)
            nextBtn.on('click',this.nextImage,this);
             let imageI = SpriteFrame.createWithImage(this.imageArray[this.inc]);
             console.log(imageI)
-            this.ImageSlide.getComponent(GamePlay).setImageforSlice(this.imageArray[this.inc],this.addGlow);
-            // this.ImageSlide.addChild(this.slicePerfab)
-
+            this.ImageSlide.getComponent(GamePlay).setImageforSlice(this.imageArray[this.inc],this.inc,this.addGlow);
+        }
+        prevImage = () =>{
+            this.ImageSlide.destroy();
+            this.child.active = true
+            this.inc=0
 
         }
         resetImage = () => {
-            this.addSlider();
+            this.glowInstantiate.destroy();
+           this.ImageSlide.getComponent(GamePlay).setImageforSlice(this.imageArray[this.inc],this.inc,this.addGlow);
         }
         nextImage = () =>{
             console.log("Next Image button")
-            ++this.inc
-            this.addSlider();
+            if(this.result){
+                if(this.inc<this.imageArray.length){
+                    ++this.inc
+                    this.ImageSlide.destroy();
+                    this.addSlider();
+                }
+            } else{
+                console.log("END OF ARRAY")
+                
+            }
         }
         addGlow = (result : Boolean, pos : Vec3) =>{
-                console.log(result)
+                this.result = result;
                     this.glowInstantiate = instantiate(this.glowPrefab);
                     this.img= SpriteFrame.createWithImage(this.imageArray[this.inc])
                     this.glowInstantiate.getComponent(glowing).blink(this.img)

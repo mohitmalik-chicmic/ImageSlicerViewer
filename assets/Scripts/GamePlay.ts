@@ -33,12 +33,13 @@ export class GamePlay extends Component {
     start() {
       
     }
-    setImageforSlice(imageAsset: any, callback){
+    setImageforSlice(imageAsset: any, inc:number,callback){
         this.imgCallback = callback
         var a=new Array();
         var loopNum=0;
         let frame = this.node.getChildByName('Frame');
         let frameCh = frame.getChildByName('frameChild')
+        frameCh.removeAllChildren();
         for(var i=0;i<this.spilt;i++)
         { 
             this.smallSlice = instantiate(this.slicePrefab);
