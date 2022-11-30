@@ -766,7 +766,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "41a3c5c4-779e-4b17-b366-590a6b9bd382@f9941",
+      "__uuid__": "fcc97927-1763-4a3e-8a2d-bb620a011c96@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 1,
@@ -835,7 +835,7 @@
       "__id__": 41
     },
     "image": {
-      "__uuid__": "391616fc-87f9-4d1a-95a0-09821acef50b",
+      "__uuid__": "a85f2527-5301-4893-b37e-edb765bb50f9",
       "__expectedType__": "cc.Prefab"
     },
     "contentNode": {

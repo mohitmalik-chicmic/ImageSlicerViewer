@@ -37,14 +37,21 @@ export class GamePlay extends Component {
         this.imgCallback = callback
         var a=new Array();
         var loopNum=0;
+        let frame = this.node.getChildByName('Frame');
+        let frameCh = frame.getChildByName('frameChild')
+        let frameH = frame.getComponent(UITransform).height
         for(var i=0;i<this.spilt;i++)
         { 
             this.smallSlice = instantiate(this.slicePrefab);
             this.smallSlice.getComponent(photoSlice2).setSlice(this.spilt,i,imageAsset,this.imageComplete) ;
             this.smallSlice.setPosition(new Vec3(0,i*this.smallSlice.getComponent(UITransform).height,0));
-            this.node.addChild(this.smallSlice);
+            
+            
+            frameCh.addChild(this.smallSlice);
+            //  console.log("Sibling Index",frameCh.get);
             let pos = this.smallSlice.getPosition();
             let radomH=this.fgetRandom(a,0,this.spilt);
+            this.smallSlice.setSiblingIndex(radomH);
             if(a[radomH]!=undefined){
             for(let i=0;i<this.spilt;i++){
                 if(a[i]==undefined){
@@ -58,7 +65,8 @@ export class GamePlay extends Component {
                 
             }
           
-            pos.y=(imageAsset.height/2)-(imageAsset.height/this.spilt)-radomH*(2+(imageAsset.height/this.spilt));
+            pos.y=(imageAsset.height/2)-(imageAsset.height/this.spilt)-radomH*((imageAsset.height/this.spilt));
+            pos.y+= (imageAsset.height/this.spilt)/2
             this.smallSlice.setPosition(pos);
             loopNum++;
         }

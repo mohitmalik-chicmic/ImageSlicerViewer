@@ -898,7 +898,7 @@
       "a": 255
     },
     "_spriteFrame": {
-      "__uuid__": "41a3c5c4-779e-4b17-b366-590a6b9bd382@f9941",
+      "__uuid__": "fcc97927-1763-4a3e-8a2d-bb620a011c96@f9941",
       "__expectedType__": "cc.SpriteFrame"
     },
     "_type": 0,
@@ -929,7 +929,11 @@
       "__uuid__": "2c7a8d15-785e-4d61-92bc-dc22855c9d9a",
       "__expectedType__": "cc.Prefab"
     },
-    "imageSlicePrefab": {
+    "sliceGlowBackGround": {
+      "__uuid__": "d39abf04-2495-4834-bb2b-664f6418a7e6",
+      "__expectedType__": "cc.Prefab"
+    },
+    "imageSlicer": {
       "__uuid__": "e4e156df-df05-4e8f-8456-4ca9f70310a9",
       "__expectedType__": "cc.Prefab"
     },

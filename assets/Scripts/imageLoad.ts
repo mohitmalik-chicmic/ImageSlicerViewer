@@ -39,7 +39,7 @@ export class imageLoad extends Component {
 
         let asset : ImageAsset = this.sliceImages[event.target.name]
       
-        this.selectedCallback(this._image,asset);
+        this.selectedCallback(asset);
     }
     update(deltaTime: number) {
     }

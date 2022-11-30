@@ -20,8 +20,6 @@ export class photoSlice2 extends Component {
     audio: any=null;
     start() {
         this.audio=this.node.getComponent(AudioSource).clip;
-
-        
     }
     /**
      * asdasdasdad
@@ -34,16 +32,16 @@ export class photoSlice2 extends Component {
         this.GnumOfSlice=splitCount
         this.imageCallback = callback
         let sprite = SpriteFrame.createWithImage(imageAsset); 
-       
+        console.log(sprite.height)
         if(this.flag = true){
             this.imageSprite = sprite
             this.flag = false
         }
         this.NegativePoint=(imageAsset.height/2)-(imageAsset.height/this.GnumOfSlice)-(this.GnumOfSlice-1)*(2+(imageAsset.height/this.GnumOfSlice))
-        console.log(this.imageSprite.height,this.imageSprite.height/this.GnumOfSlice);
-         console.log( ((this.imageSprite.height)/2-(this.imageSprite.height/this.GnumOfSlice )));
-         console.log((this.imageSprite.height)/2-((this.imageSprite.height/this.GnumOfSlice )));
-         console.log(this.NegativePoint);
+        // console.log(this.imageSprite.height,this.imageSprite.height/this.GnumOfSlice);
+        //  console.log( ((this.imageSprite.height)/2-(this.imageSprite.height/this.GnumOfSlice )));
+        //  console.log((this.imageSprite.height)/2-((this.imageSprite.height/this.GnumOfSlice )));
+        //  console.log(this.NegativePoint);
         let rect=math.rect(0,Index*(sprite.height/splitCount),sprite.width,sprite.height/splitCount);
         this.node.on(Node.EventType.TOUCH_START,this.touchStart,this,true);
         this.node.on(Node.EventType.TOUCH_MOVE, this.onTouchMove, this, true);
@@ -51,6 +49,7 @@ export class photoSlice2 extends Component {
         sprite.setRect(rect);
         this.node.getComponent(Sprite).spriteFrame = sprite;
        this.node.name = `${Index}`
+       
        let json : JsonAsset
     }
 
@@ -92,7 +91,7 @@ export class photoSlice2 extends Component {
             var nodeName=parseInt(this.node.name);
             if(Nodepos.y  >= ((this.imageSprite.height)/2-((this.imageSprite.height/this.GnumOfSlice )))){
                 this.node.setPosition(this.selectImgPos);
-            }else if (Nodepos.y < this.NegativePoint-(2*this.GnumOfSlice)){
+            }else if (Nodepos.y < this.NegativePoint){
                 this.node.setPosition(this.selectImgPos);
             }
             for(var i=0;i<this.GnumOfSlice;i++){
@@ -160,7 +159,7 @@ export class photoSlice2 extends Component {
         if(check){
            
         
-            let mid = Math.ceil(this.GnumOfSlice/2);
+            let mid = Math.floor(this.GnumOfSlice/2);
           
             let c = this.node.parent.getChildByName(`${mid}`)
             this.puzzleResult = true;

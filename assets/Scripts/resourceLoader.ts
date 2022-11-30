@@ -12,7 +12,10 @@ export class resourceLoader extends Component {
     scrollView: Prefab = null;
 
     @property({type   : Prefab})
-    imageSlicePrefab : Prefab = null;
+    sliceGlowBackGround : Prefab = null;
+
+    @property({type   : Prefab})
+    imageSlicer : Prefab = null;
 
    @property({type: Prefab})
    glowInstantiatelow : Prefab = null;
@@ -22,6 +25,8 @@ export class resourceLoader extends Component {
     ImageSlide : Node = null;
     result: boolean = false
     glowInstantiate:Node=null;
+    slicePerfab : Node =null;
+    imgIndex : any =null;
     start() {
         
        
@@ -51,35 +56,41 @@ export class resourceLoader extends Component {
         });
     }
     
-    setSelectedImage = (image : SpriteFrame, imageIndex : any) =>{
+    setSelectedImage = (imageIndex : any) =>{
+        this.imgIndex = imageIndex
         this.scrollViewNode.active = false;
-        this.ImageSlide = instantiate(this.imageSlicePrefab);
-        this.ImageSlide.getComponent(GamePlay).setImageforSlice(imageIndex, this.addGlow);
+        this.ImageSlide = instantiate(this.sliceGlowBackGround);
         this.img= SpriteFrame.createWithImage(imageIndex);
         this.node.addChild(this.ImageSlide);
+        this.slicePerfab = instantiate(this.imageSlicer)
+        this.slicePerfab.getComponent(GamePlay).setImageforSlice(imageIndex, this.addGlow);
+        this.ImageSlide.getChildByName('frameData').addChild(this.slicePerfab)
+        let btn=this.ImageSlide.getChildByName('restartButton')
+        console.log("Button", btn)
+        btn.on(Node.EventType.TOUCH_END,this.restart,this);
+
+
     }
 
     addGlow = (result : Boolean, pos : Vec3) =>{
-        this.ImageSlide.active = false;
+        this.ImageSlide.getChildByName('frameData').removeChild(this.slicePerfab);
         this.glowInstantiate = instantiate(this.glowInstantiatelow);
-
         this.glowInstantiate.getComponent(glowing).blink(this.img)
         let sprite = this.glowInstantiate.getChildByName('Item_cat');
         let maskContent = this.glowInstantiate.getChildByName('Mask');
         console.log("Resource loader add Glow")
-        this.node.addChild(this.glowInstantiate);
+        this.ImageSlide.getChildByName('frameData').addChild(this.glowInstantiate);
         this.glowInstantiate.setPosition(0, pos.y, 0)
-        let imageRect = this.img._rect;
+       let imageRect = this.img._rect;
         sprite.getComponent(UITransform).height = imageRect.height;
         sprite.getComponent(UITransform).width = imageRect.width;
         maskContent.getComponent(UITransform).height = imageRect.height;
         maskContent.getComponent(UITransform).width = imageRect.width;
-        let btn=this.node.getChildByName("picture").getChildByName("restart");
-        btn.on('click',this.restart,this);
     }
     restart(){
-       this.glowInstantiate.destroy();
-       this.scrollViewNode.active=true;
+        console.log("restart clicked")
+        this.ImageSlide.getChildByName('frameData').removeAllChildren();
+        this.setSelectedImage(this.imgIndex)
     }
 
     update(deltaTime: number) {
