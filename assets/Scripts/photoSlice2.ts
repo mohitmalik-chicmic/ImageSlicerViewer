@@ -2,7 +2,7 @@ import { _decorator, Component, Node, SpriteFrame, Texture2D, math, Sprite, Imag
 import { glowing } from './glowing';
 const { ccclass, property } = _decorator;
 import { SingletonClass } from './SingleTon';
-import { Audio } from './Audio';
+
 @ccclass('photoSlice2')
 export class photoSlice2 extends Component {
     
@@ -40,10 +40,7 @@ export class photoSlice2 extends Component {
             this.flag = false
         }
         this.NegativePoint=(imageAsset.height/2)-(imageAsset.height/this.GnumOfSlice)-(this.GnumOfSlice-1)*(2+(imageAsset.height/this.GnumOfSlice))
-        console.log(this.imageSprite.height,this.imageSprite.height/this.GnumOfSlice);
-         console.log( ((this.imageSprite.height)/2-(this.imageSprite.height/this.GnumOfSlice )));
-         console.log((this.imageSprite.height)/2-((this.imageSprite.height/this.GnumOfSlice )));
-         console.log(this.NegativePoint);
+       
         let rect=math.rect(0,Index*(sprite.height/splitCount),sprite.width,sprite.height/splitCount);
         this.node.on(Node.EventType.TOUCH_START,this.touchStart,this,true);
         this.node.on(Node.EventType.TOUCH_MOVE, this.onTouchMove, this, true);
@@ -59,7 +56,7 @@ export class photoSlice2 extends Component {
         
         this.rect = this.node.parent.getComponent(UITransform).convertToNodeSpaceAR(new Vec3(event.getUILocation().x,event.getUILocation().y,0)); 
         this.pos=this.node.getPosition();
-        console.log(this.pos);
+        
         this.rect.x=this.rect.x-this.pos.x;
         this.rect.y=this.rect.y-this.pos.y;  
        

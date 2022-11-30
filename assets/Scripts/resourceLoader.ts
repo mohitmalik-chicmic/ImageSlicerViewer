@@ -1,13 +1,20 @@
-import { _decorator, Component, Node, resources, Prefab, instantiate, director, SpriteFrame, Sprite, Texture2D, ImageAsset, SystemEvent, Input, Scene, SceneAsset, Vec3, UITransform, JsonAsset } from "cc";
+import { _decorator, Component, Node, resources, Prefab, instantiate, director, SpriteFrame, Sprite, Texture2D, ImageAsset, SystemEvent, Input, Scene, SceneAsset, Vec3, UITransform, JsonAsset, AudioClip, AudioSource } from "cc";
 import { GamePlay } from "./GamePlay";
 import { glowing } from "./glowing";
 import { imageLoad } from "./imageLoad";
 import { SingletonClass } from "./SingleTon";
+import { SetiningMenu } from "./SettingMenu";
+import { ResourceUtils } from "./Managers/ResourceUtils";
+import { SoundManager } from "./Managers/SoundManager";
 const { ccclass, property } = _decorator;
 
 @ccclass("resourceLoader")
 export class resourceLoader extends Component {
-
+    @property({type:AudioClip})
+    audio:AudioClip=null;
+    @property({type:AudioClip})
+    Sound:AudioClip=null;
+    
     @property({ type: Prefab })
     scrollView: Prefab = null;
 
@@ -17,24 +24,38 @@ export class resourceLoader extends Component {
    @property({type: Prefab})
    glowInstantiatelow : Prefab = null;
 
+   @property(Node) musicAudioSource: Node = null;
+    @property(Node) soundAudioSource: Node = null;
+
     img : any = null;
     scrollViewNode : Node = null;
     ImageSlide : Node = null;
     result: boolean = false
     glowInstantiate:Node=null;
+    soundsObj:any=null;
+    soundManager:any=null;
     start() {
-        
-       
-        
+        this.initAudioSource();
+        this.soundsObj= SingletonClass.getInstance();
+        this.soundManager = SoundManager.getInstance();
+        ResourceUtils.getInstance().musicFiles();
     }
     handleStartButtonClick (){
-
-        console.log("hello");
+        if(!this.soundsObj.boolSound){
+            
+            this.soundManager.playSoundEffect( ResourceUtils.getInstance().getMusicFile("sound"),false);
+        }
         var child=this.node.getChildByName("Node");
         child.active=false;
         this.scrollViewFunction();
+        
 
         
+    }
+
+    initAudioSource() {
+        SoundManager.getInstance().init(this.musicAudioSource.getComponent(AudioSource)!);
+        SoundManager.getInstance().initSoundEffectAS(this.soundAudioSource.getComponent(AudioSource)!);
     }
     scrollViewFunction(){
          var lvl = SingletonClass.getInstance();
