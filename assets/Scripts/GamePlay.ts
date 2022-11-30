@@ -39,7 +39,6 @@ export class GamePlay extends Component {
         var loopNum=0;
         let frame = this.node.getChildByName('Frame');
         let frameCh = frame.getChildByName('frameChild')
-        let frameH = frame.getComponent(UITransform).height
         for(var i=0;i<this.spilt;i++)
         { 
             this.smallSlice = instantiate(this.slicePrefab);
@@ -48,7 +47,6 @@ export class GamePlay extends Component {
             
             
             frameCh.addChild(this.smallSlice);
-            //  console.log("Sibling Index",frameCh.get);
             let pos = this.smallSlice.getPosition();
             let radomH=this.fgetRandom(a,0,this.spilt);
             this.smallSlice.setSiblingIndex(radomH);

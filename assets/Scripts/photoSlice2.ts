@@ -91,7 +91,7 @@ export class photoSlice2 extends Component {
             var nodeName=parseInt(this.node.name);
             if(Nodepos.y  >= ((this.imageSprite.height)/2-((this.imageSprite.height/this.GnumOfSlice )))){
                 this.node.setPosition(this.selectImgPos);
-            }else if (Nodepos.y < this.NegativePoint){
+            }else if (Nodepos.y < this.NegativePoint    ){
                 this.node.setPosition(this.selectImgPos);
             }
             for(var i=0;i<this.GnumOfSlice;i++){

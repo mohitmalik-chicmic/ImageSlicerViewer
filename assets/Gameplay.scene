@@ -925,19 +925,16 @@
     },
     "_enabled": true,
     "__prefab": null,
-    "scrollView": {
-      "__uuid__": "2c7a8d15-785e-4d61-92bc-dc22855c9d9a",
-      "__expectedType__": "cc.Prefab"
-    },
-    "sliceGlowBackGround": {
-      "__uuid__": "d39abf04-2495-4834-bb2b-664f6418a7e6",
+    "image": {
+      "__uuid__": "a85f2527-5301-4893-b37e-edb765bb50f9",
       "__expectedType__": "cc.Prefab"
     },
     "imageSlicer": {
-      "__uuid__": "e4e156df-df05-4e8f-8456-4ca9f70310a9",
+      "__uuid__": "23518c5e-a0cf-49c1-9f34-c146d71b040b",
       "__expectedType__": "cc.Prefab"
     },
-    "glowInstantiatelow": {
+    "imageArray": [],
+    "glowPrefab": {
       "__uuid__": "23c06ee1-65c8-4c4f-ba4c-a7b5fb24c066",
       "__expectedType__": "cc.Prefab"
     },
