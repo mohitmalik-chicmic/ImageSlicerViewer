@@ -1,17 +1,35 @@
-import { _decorator, Component,Animation, Node, SpriteFrame, Sprite, UITransform, Vec3, Prefab, instantiate, spriteAssembler, animation } from 'cc';
+import { _decorator, Component, Node, Sprite, AudioSource } from "cc";
+import { SingletonClass } from "./singleTon";
+import { SoundManager } from "./managers/soundManager";
 const { ccclass, property } = _decorator;
 
-@ccclass('glowing')
+@ccclass("glowing")
 export class glowing extends Component {
-    @property({type : Node})
-    getMask : Node = null!
+  @property({ type: Node })
+  getMask: Node = null!;
 
-    start(){}
+  //check: Boolean = true;
+  audio: any = null;
+  soundsObj: any = null;
+  soundManager: any = null;
 
-    blink = (img : any) =>{
-        this.getMask.getComponent(Sprite).spriteFrame = img
-        this.node.getChildByName('Item_cat').getComponent(Sprite).spriteFrame = img;
-    }   
-    update(){}
+  start() {
+    // this.soundsObj=SingletonClass.getInstance();
+    // console.log(this.soundsObj.boolSound)
+    // this.audio = this.node.getComponent(AudioSource).clip;
+    // if(!this.soundsObj.boolSound){
+    //     this.audio.play();
+    // }
+    this.soundManager = SoundManager.getInstance();
+  }
+
+  blink = (imageSprite: any) => {
+    this.getMask.getComponent(Sprite).spriteFrame = imageSprite;
+    this.node.getChildByName("imageSprite").getComponent(Sprite).spriteFrame =
+      imageSprite;
+    this.soundsObj = SingletonClass.getInstance();
+   // console.log(this.soundsObj.boolSound);
+    this.audio = this.node.getComponent(AudioSource).clip;
+  };
+  update() {}
 }
-
