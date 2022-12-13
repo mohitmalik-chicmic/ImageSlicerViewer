@@ -1,10 +1,6 @@
-//import { JsonAsset, resources } from "cc";
-
 export class SingletonClass {
-  currentlvl = 0;
   boolMusic: Boolean = true;
   boolSound: Boolean = false;
-  value;
   private static _instance: SingletonClass = new SingletonClass();
   public static getInstance(): SingletonClass {
     return SingletonClass._instance;

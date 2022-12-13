@@ -1921,14 +1921,6 @@
     "__prefab": {
       "__id__": 87
     },
-    "audio": {
-      "__uuid__": "a9c5eff1-fbc9-4336-9927-54d37b19062d",
-      "__expectedType__": "cc.AudioClip"
-    },
-    "Sound": {
-      "__uuid__": "51d9c6fc-a697-4e4f-a126-6ce5d4cf3fcc",
-      "__expectedType__": "cc.AudioClip"
-    },
     "musicButoon": {
       "__id__": 65
     },

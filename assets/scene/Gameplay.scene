@@ -1064,6 +1064,10 @@
       "__uuid__": "23c06ee1-65c8-4c4f-ba4c-a7b5fb24c066",
       "__expectedType__": "cc.Prefab"
     },
+    "settingMenu": {
+      "__uuid__": "a0ecfc4f-cdeb-4078-8eb8-9dd27b62bba0",
+      "__expectedType__": "cc.Prefab"
+    },
     "musicAudioSource": {
       "__id__": 23
     },

@@ -9,7 +9,7 @@ import {
   UITransform,
   AudioSource,
 } from "cc";
-import { GamePlay } from "./gamePlay";
+import { GamePlay } from "./imageSlice";
 import { glowing } from "./glowing";
 import { SoundManager } from "./managers/soundManager";
 import { SingletonClass } from "./singleTon";
@@ -19,19 +19,13 @@ const { ccclass, property } = _decorator;
 
 @ccclass("resourceLoader")
 export class resourceLoader extends Component {
-  // @property({ type: Prefab }) loading: Prefab = null;
-  // @property({ type: Prefab }) settingMenu: Prefab = null;
-  // @property(Node) winSound: Node = null;
-
   @property({ type: Prefab }) imageSlicer: Prefab = null;
   @property({ type: Prefab }) endPrefab: Prefab = null;
   @property({ type: Prefab }) glowPrefab: Prefab = null;
+  @property({ type: Prefab }) settingMenu: Prefab = null;
   @property(Node) musicAudioSource: Node = null;
   @property(Node) soundAudioSource: Node = null;
   inc: number = 0;
-  // load: Node = null;
-
-  // startButton: Node = null;
   glowInstantiate: Node = null;
   startGame: Node = null;
   ImageSlide: Node = null;
@@ -69,17 +63,9 @@ export class resourceLoader extends Component {
     }
     this.startGame = this.node.getChildByName("StartGame");
     this.startGame.active = false;
-    // this.startButton = this.startGame.getChildByName("StartButton");
-    // this.startButton.active = false;
-    // this.load = instantiate(this.loading);
-    // this.node.addChild(this.load);
     this.addSlider();
   }
-  restart() {
-    this.handleStartButtonClick();
-  }
   addSlider() {
-    // this.load.destroy();
     this.result = false;
     this.startGame.active = false;
     this.ImageSlide = instantiate(this.imageSlicer);
@@ -94,17 +80,29 @@ export class resourceLoader extends Component {
       this.inc,
       this.addGlow
     );
-    // let imageI = SpriteFrame.createWithImage(this.imageI.imageArray[this.inc]);
-    // console.log(this.imageI.imageArray[this.inc]);
-    // console.log(" this.ImageSlide : ", this.ImageSlide);
   }
   controlButtons() {
     this.nextButton = this.ImageSlide.getChildByName("nextImage");
     let resetBtn = this.ImageSlide.getChildByName("resetImage");
     let prevImage = this.ImageSlide.getChildByName("prevImage");
+    let setting = this.ImageSlide.getChildByName("settings");
     prevImage.on("click", this.prevImage, this);
     resetBtn.on("click", this.resetImage, this);
     this.nextButton.on("click", this.nextImage, this);
+    setting.on("click", this.settingMenuAdd, this);
+  }
+  settingMenuAdd() {
+    if (!this.soundsObj.boolSound) {
+      this.soundManager.playSoundEffect(
+        ResourceUtils.getInstance().getMusicFile("sound"),
+        false
+      );
+    }
+    let setting = instantiate(this.settingMenu);
+    this.node.addChild(setting);
+  }
+  restart() {
+    this.handleStartButtonClick();
   }
   prevImage = () => {
     this.soundManager.CanPlayMusic = false;
@@ -115,14 +113,11 @@ export class resourceLoader extends Component {
         false
       );
     }
-    // this.startButton.active = true;
-    // this.load.destroy();
     this.ImageSlide.destroy();
     this.startGame.active = true;
     this.inc = 0;
   };
   resetImage = () => {
-    this.soundManager.CanPlayMusic = false;
     if (!this.soundsObj.boolSound) {
       this.soundManager.playSoundEffect(
         ResourceUtils.getInstance().getMusicFile("sound"),
@@ -139,40 +134,37 @@ export class resourceLoader extends Component {
     );
   };
   nextImage = () => {
+    if (!this.soundsObj.boolSound) {
+      this.soundManager.playSoundEffect(
+        ResourceUtils.getInstance().getMusicFile("sound"),
+        false
+      );
+    }
     this.imageI.index++;
-    // if (this.inc >= 20) {
-    //     this.inc = 0;
-    // }
-    this.soundManager.CanPlayMusic = false;
-    //console.log("Next Image button");
     if (this.inc < this.imageI.imageArray.length - 1) {
-       if (this.result) {
+      // if (this.result) {
       ++this.inc;
       this.ImageSlide.destroy();
       this.addSlider();
-       }
+      // }
     } else {
-      // console.log("END OF ARRAY");
       this.inc = 0;
       this.ImageSlide.destroy();
       this.end = instantiate(this.endPrefab);
       this.node.addChild(this.end);
       let reset = this.end.getChildByName("Button");
-      //  console.log(reset);
       reset.on("click", this.resetGame, this);
     }
   };
 
   addGlow = () => {
-    //this.result = result;
-    // let nextBtn = this.ImageSlide.getChildByName("nextImage");
+    this.result = true;
     this.nextButton.getComponent(Sprite).grayscale = false;
     this.glowInstantiate = instantiate(this.glowPrefab);
     this.glowInstantiate.getComponent(glowing).blink(this.img);
     let maskSprite = this.glowInstantiate.getChildByName("imageSprite");
     let maskContent = this.glowInstantiate.getChildByName("Mask");
     this.ImageSlide.addChild(this.glowInstantiate);
-    // this.glowInstantiate.setPosition(0, pos.y, 0);
     let imageRect = this.img.rect;
     maskSprite.getComponent(UITransform).height = imageRect.height;
     maskSprite.getComponent(UITransform).width = imageRect.width;
@@ -182,15 +174,9 @@ export class resourceLoader extends Component {
   resetGame() {
     let end = this.node.getChildByName("endscene");
     end.destroy();
-    // this.startButton.active = true;
     let startGameNode = this.node.getChildByName("StartGame");
     startGameNode.active = true;
   }
 
-  update() {
-    // this.inc=this.imageI.index;
-    if (this.soundsObj.boolSound) {
-      this.soundManager.CanPlayMusic = false;
-    }
-  }
+  update() {}
 }

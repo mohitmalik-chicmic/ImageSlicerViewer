@@ -8,11 +8,10 @@ import {
   CCInteger,
   UITransform,
   Vec3,
+  ImageAsset,
 } from "cc";
-import { ResourceUtils } from "./managers/resourceUtils";
 import { SoundManager } from "./managers/soundManager";
-
-import { photoSlice2 } from "./photoSlice2";
+import { cutSlice } from "./cutSlice";
 import { SingletonClass } from "./singleTon";
 const { ccclass, property } = _decorator;
 
@@ -21,67 +20,41 @@ export class GamePlay extends Component {
   @property({ type: Prefab })
   frame: Prefab = null;
   @property({ type: Prefab })
-  settingMenu: Prefab = null;
-  @property({ type: Prefab })
   slicePrefab: Prefab = null;
   @property({ type: CCInteger })
   spilt: number = 0;
-  //   @property({ type: Prefab })
-  //   imageGlow: Prefab = null;
-  //  @property({ type: ImageAsset })
-  //   imageAssert: ImageAsset = null;
-  //   @property({ type: CCInteger })
-  //   sliceNumber: any = 0;
+
   frameCh: Node = null;
   smallSlice: Node = null;
 
   imgCallback: Function = null;
   selectedImage: SpriteFrame = null;
   puzzleResult: Boolean = false;
-  soundsObj: any = null;
-  soundManager: any = null;
+  soundsObj: SingletonClass = null;
+  soundManager: SoundManager = null;
 
   onLoad() {
     let Frame = instantiate(this.frame);
     this.node.addChild(Frame);
-    // console.log("GAME PLAY ON LOAD CALLED");
-    //console.log(Frame.name);
   }
   start() {
-    //console.log("GAME PLAY START CALLED");
     this.soundsObj = SingletonClass.getInstance();
     this.soundManager = SoundManager.getInstance();
   }
-  handleStartButtonClick() {
-    if (!this.soundsObj.boolSound) {
-      this.soundManager.playSoundEffect(
-        ResourceUtils.getInstance().getMusicFile("sound"),
-        false
-      );
-    }
-    let setting = instantiate(this.settingMenu);
-    this.node.addChild(setting);
-  }
-  setImageforSlice(imageAsset: any, inc: number, callback) {
+  setImageforSlice(imageAsset: ImageAsset, inc: number, callback: Function) {
     if (inc >= 11) {
       this.spilt = 8;
     }
     this.imgCallback = callback;
     let slicePosArray = new Array();
     let loopNum = 0;
-    // console.log(this.node.children);
     let frame = this.node.getChildByName("imageFrame");
     this.frameCh = frame.getChildByName("frameChild");
     this.frameCh.removeAllChildren();
-
-    // console.log(this.node.getChildByName("settings"));
-    // console.log(this.node.getChildByName("settings"));
-
-    //console.log(frame);
     for (var i = 0; i < this.spilt; i++) {
       this.smallSlice = instantiate(this.slicePrefab);
       this.smallSlice
-        .getComponent(photoSlice2)
+        .getComponent(cutSlice)
         .setSlice(this.spilt, i, imageAsset, this.imageComplete);
 
       this.smallSlice.setPosition(
@@ -114,17 +87,15 @@ export class GamePlay extends Component {
     }
   }
 
-  fgetRandom(min, max) {
-    // var flag = true;
+  fgetRandom(min: number, max: number) {
     let value = Math.floor(Math.random() * (max - min) + min);
     return value;
   }
-  imageComplete = (result) => {
+  imageComplete = (result: Boolean) => {
     if (result) {
       this.frameCh.removeAllChildren();
       this.imgCallback();
     }
-    //this.puzzleResult = result;
   };
 
   update(deltaTime: number) {}

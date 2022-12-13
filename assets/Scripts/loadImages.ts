@@ -3,7 +3,7 @@ const { ccclass, property } = _decorator;
 
 @ccclass("loadImages")
 export class loadImages extends Component {
-  index = 0;
+  index: number = 0;
   imageArray: ImageAsset[] = [];
 
   private static _instance: loadImages = new loadImages();
@@ -17,7 +17,6 @@ export class loadImages extends Component {
         console.log("ERROR IN LOADING");
       } else {
         this.imageArray = item;
-        console.log("Array length", item.length);
       }
     });
   }

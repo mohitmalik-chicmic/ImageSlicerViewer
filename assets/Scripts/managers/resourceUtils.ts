@@ -1,48 +1,54 @@
-import { _decorator, Component, resources, Asset, Prefab, AudioClip, error, VideoClip, SpriteFrame } from "cc";
+import {
+  _decorator,
+  Component,
+  resources,
+  AudioClip,
+  error
+} from "cc";
 
 const { ccclass } = _decorator;
 
 @ccclass("ResourceUtils")
 export class ResourceUtils extends Component {
-    _musicFiles: AudioClip[] = [];
-    _gameResource: Record<string, any> = {};
-    public static _instance: ResourceUtils;
+  _musicFiles: AudioClip[] = [];
+  _gameResource: Record<string, any> = {};
+  public static _instance: ResourceUtils;
 
-    start() {}
+  start() {}
 
-    public static getInstance() {
-        if (!ResourceUtils._instance) {
-            ResourceUtils._instance = new ResourceUtils();
-        }
-        return ResourceUtils._instance;
+  public static getInstance() {
+    if (!ResourceUtils._instance) {
+      ResourceUtils._instance = new ResourceUtils();
     }
+    return ResourceUtils._instance;
+  }
 
-    public loadMusicFiles() {
-        return new Promise((resolve, reject) => {
-            if (this._musicFiles.length > 0) {
-                resolve(this._musicFiles);
-            } else {
-                resources.loadDir(`audio`, (err: Error | null, data: AudioClip[]) => {
-                    if (err) {
-                        console.log("ERROR");
+  public loadMusicFiles() {
+    return new Promise((resolve, reject) => {
+      if (this._musicFiles.length > 0) {
+        resolve(this._musicFiles);
+      } else {
+        resources.loadDir(`audio`, (err: Error | null, data: AudioClip[]) => {
+          if (err) {
+            console.log("ERROR");
 
-                        reject(err);
-                        error("load audio files :" + err);
-                    } else {
-                        console.log("LOADED: ", data);
+            reject(err);
+            error("load audio files :" + err);
+          } else {
+            console.log("LOADED: ", data);
 
-                        this._musicFiles = data;
-                    }
-                    resolve(this._musicFiles);
-                });
-            }
+            this._musicFiles = data;
+          }
+          resolve(this._musicFiles);
         });
-    }
+      }
+    });
+  }
 
-    public getMusicFile(name: string): AudioClip {
-        if (this._musicFiles) {
-            let clip = this._musicFiles.find((clip) => clip.name == name);
-            return clip || null;
-        }
+  public getMusicFile(name: string): AudioClip {
+    if (this._musicFiles) {
+      let clip = this._musicFiles.find((clip) => clip.name == name);
+      return clip || null;
     }
+  }
 }

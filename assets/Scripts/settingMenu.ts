@@ -6,10 +6,6 @@ import { ResourceUtils } from "./managers/resourceUtils";
 
 @ccclass("SetiningMenu")
 export class SetiningMenu extends Component {
-  // @property({type:AudioClip})
-  // audio:AudioClip=null;
-  // @property({type:AudioClip})
-  // Sound:AudioClip=null;
   @property({ type: Sprite })
   musicButoon: Sprite = null;
   @property({ type: Sprite })
@@ -21,8 +17,8 @@ export class SetiningMenu extends Component {
   @property({ type: SpriteFrame })
   ButtonOff: SpriteFrame = null;
 
-  soundsObj: any = null;
-  soundManager: any = null;
+  soundsObj: SingletonClass = null;
+  soundManager: SoundManager = null;
   start() {
     this.soundsObj = SingletonClass.getInstance();
     this.soundManager = SoundManager.getInstance();
@@ -34,8 +30,6 @@ export class SetiningMenu extends Component {
     }
   }
   handleStartButtonClick() {
-    console.log("function call");
-
     if (!this.soundsObj.boolSound) {
       this.soundManager.playSoundEffect(
         ResourceUtils.getInstance().getMusicFile("sound"),
@@ -43,7 +37,7 @@ export class SetiningMenu extends Component {
       );
     }
     if (this.soundsObj.boolSound) {
-      this.soundManager.canPlaySound = this.soundsObj.boolSound;
+      this.soundManager.CanPlaySound = this.soundsObj.boolSound;
       this.soundsObj.offsound();
       this.SoundButoon.spriteFrame = this.ButtonOn;
 
@@ -52,7 +46,7 @@ export class SetiningMenu extends Component {
         false
       );
     } else {
-      this.soundManager.canPlaySound = false;
+      this.soundManager.CanPlaySound = false;
       this.soundsObj.onSound();
       this.SoundButoon.spriteFrame = this.ButtonOff;
       this.soundManager.stopSoundEffect();
@@ -60,7 +54,10 @@ export class SetiningMenu extends Component {
   }
   handleStartButtonClick2() {
     if (this.soundsObj.boolMusic) {
-      this.soundManager.canPlayMusic = this.soundsObj.boolMusic;
+      this.soundManager.CanPlayMusic = false;
+    }
+    if (this.soundsObj.boolMusic) {
+      this.soundManager.CanPlayMusic = this.soundsObj.boolMusic;
       this.soundsObj.offMusic();
       this.musicButoon.spriteFrame = this.ButtonOn;
 
@@ -69,7 +66,7 @@ export class SetiningMenu extends Component {
         true
       );
     } else {
-      this.soundManager.canPlayMusic = false;
+      this.soundManager.CanPlayMusic = false;
       this.soundsObj.onMusic();
       this.musicButoon.spriteFrame = this.ButtonOff;
 
